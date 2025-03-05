@@ -8,4 +8,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            'boostrap': 'bootstrap/dist/css/boostrap.min.css',
+        },
+    },
 });
