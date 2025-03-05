@@ -31,7 +31,7 @@ Route::get('/films', function () {
 // After clicking in one film the route will change and take the id/name of that film
 // this route will responsible to show the film with their details
 Route::get('/films/SpiderMan', function () {
-    return view('spiderMan')
+    return view('spiderMan');
 });
 
 // Route for displaying the series lists
