@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Serie extends Model
+{
+    use HasFactory;
+
+    // define the columns of series table
+    protected $fillable = [
+        'image',
+        'name,',
+        'desc',
+        'actor',
+        'director',
+    ];
+}
