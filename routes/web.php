@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SeriesListController;
+use App\Models\Movie;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,8 @@ Route::get('/', function () {
 // after logging the user will go to the home page of app
 // this is main page containing all info e:g films, series etc
 Route::get('/home', function () {
-    return view('home');
+    $movies = Movie::all();
+    return view('home', compact('movies'));
 });
 
 // this route will only display latest films only
