@@ -38,9 +38,12 @@ Route::get('/films/SpiderMan', function () {
 });
 
 // Route for displaying the series lists
-Route::get('/series', function () {
-    return view('seriesList');
-});
+//Route::get('/series', function () {
+  //  return view('seriesList');
+//});
+
+// Route for series list 
+Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSeries');
 
 // After click in one series the routes will be change
 // and if sereies have episodes the user if click in any other episode
