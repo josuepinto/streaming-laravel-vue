@@ -14,7 +14,7 @@
                     <p class="card-text">{{ $serie->desc }}</p>
                     <p class="card-text"><strong>Actors:</strong> {{ $serie->actor }}</p>
                     <p class="card-text"><strong>Director:</strong> {{ $serie->director }}</p>
-                    <a href="#" class="btn btn-primary">Watch Now</a>
+                    <a href="{{$serie->video_url}}" class="btn btn-primary">Watch Now</a>
                 </div>
             </div>
         </div>

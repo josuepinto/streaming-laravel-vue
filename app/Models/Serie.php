@@ -16,5 +16,7 @@ class Serie extends Model
         'desc',
         'actor',
         'director',
+        'video_url',
+        'num_episode'
     ];
 }
