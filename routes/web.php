@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeriesListController;
+use App\Http\Controllers\MovieListController;
 use App\Models\Movie;
 
 
@@ -27,10 +28,9 @@ Route::get('/home', function () {
     return view('home', compact('movies'));
 });
 
-// this route will only display latest films only
-Route::get('/films', function () {
-    return view('filmList');
-});
+// this route will display the list of films
+Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');
+
 
 // After clicking in one film the route will change and take the id/name of that film
 // this route will responsible to show the film with their details
@@ -38,10 +38,7 @@ Route::get('/films/SpiderMan', function () {
     return view('spiderMan');
 });
 
-// Route for displaying the series lists
-//Route::get('/series', function () {
-  //  return view('seriesList');
-//});
+
 
 // Route for series list 
 Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSeries');
