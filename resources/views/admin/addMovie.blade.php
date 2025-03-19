@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<form method="POST" action="{{ route() }}">
+<form method="POST">
 <header class="banner mt-5">
     <h1>Add Movie to the List</h1>
 </header>
