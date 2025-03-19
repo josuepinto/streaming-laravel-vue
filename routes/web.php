@@ -32,29 +32,16 @@ Route::get('/home', function () {
 Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');
 
 
-// After clicking in one film the route will change and take the id/name of that film
-// this route will responsible to show the film with their details
-Route::get('/films/SpiderMan', function () {
-    return view('spiderMan');
-});
-
-
 
 // Route for series list 
 Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSeries');
 
-// After click in one series the routes will be change
-// and if sereies have episodes the user if click in any other episode
-// the route will change also
-Route::get('/series/name/episode1', function () {
-    return view('Berlin');
-});
 
-// Route to see myList/Favourite
-Route::get('/myList', function () {
-    return view('favouriteList');
-});
-
+// Admin routes start below
 Route::get('/admin/panel', function () {
     return view('admin.panel');
+});
+
+Route::get('/admin/addMovie', function () {
+    return view('admin.addMovie');
 });
