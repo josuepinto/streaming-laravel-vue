@@ -13,7 +13,7 @@
                     <div class="carousel-caption d-none d-md-block">
                         <h2>{{ $movie->title }}</h2>
                         <p>{{ Str::limit($movie->description, 150) }}</p>
-                        <a href="#" class="btn btn-primary">Ver Ahora</a>
+                        <a href="https://www.youtube.com/watch?v=fpeXTzkoT_k&pp=ygUNYmVybGluIHNlcmllcw%3D%3D" class="btn btn-primary">Ver Ahora</a>
                     </div>
                 </div>
             @endforeach
