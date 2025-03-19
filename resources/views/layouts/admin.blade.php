@@ -14,9 +14,9 @@
         </div>
         <main class="container">
             
-        <nav class="navbar bg-secondary  border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <nav class="navbar bg-secondary  border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
             <div class="container-fluid">
-                <img src="image/logo.jpeg" alt="Logo" height="36">PiFlix</img>
+                <img src="image/logo.jpeg" width="30" height="30" alt="">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -26,7 +26,7 @@
                             <a class="nav-link active" aria-current="page" href="/admin/panel">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/newMovie">Add New Film</a>
+                            <a class="nav-link" href="/admin/addMovie">Add New Film</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/newSerie">Add New Series</a>
