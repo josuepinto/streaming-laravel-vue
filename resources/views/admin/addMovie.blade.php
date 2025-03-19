@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 @section('content')
-<form>
+<form method="POST" action="{{ route() }}">
 <header class="banner mt-5">
     <h1>Add Movie to the List</h1>
 </header>
   <div class="mb-3">
-    <label for="name" class="form-label">Movie Name:</label>
-    <input type="text" class="form-control" id="name">
+    <label for="title" class="form-label">Movie Name:</label>
+    <input type="text" class="form-control" id="title">
   </div>
   <div class="mb-3">
-    <label for="desc" class="form-label">Description:</label>
-    <input type="text" class="form-control" id="desc">
+    <label for="description" class="form-label">Description:</label>
+    <input type="text" class="form-control" id="description">
   </div>
   <div class="mb-3">
     <label for="genre" class="form-label">Genre:</label>
@@ -28,14 +28,7 @@
     <label for="image" class="form-label">Image:</label>
     <input type="file" class="form-control" id="image">
   </div>
-  <div class="mb-3">
-    <label for="actor" class="form-label">Actor</label>
-    <input type="text" class="form-control" id="actor">
-  </div>
-  <div class="mb-3">
-    <label for="director" class="form-label">Director</label>
-    <input type="text" class="form-control" id="director">
-  </div>
+  
   <button type="submit"  class="btn btn-primary">Add Movie</button>
 </form>
 @endsection
