@@ -45,3 +45,5 @@ Route::get('/admin/panel', function () {
 Route::get('/admin/addMovie', function () {
     return view('admin.addMovie');
 });
+
+Route::post('/admin/addMovie', [MovieListController::class, 'store'])->name('store');
