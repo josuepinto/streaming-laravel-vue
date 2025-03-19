@@ -54,3 +54,7 @@ Route::get('/series/name/episode1', function () {
 Route::get('/myList', function () {
     return view('favouriteList');
 });
+
+Route::get('/admin/panel', function () {
+    return view('admin.panel');
+});
