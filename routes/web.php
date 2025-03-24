@@ -5,7 +5,9 @@ use App\Http\Controllers\SeriesListController;
 use App\Http\Controllers\MovieListController;
 use App\Http\Controllers\UserController;
 use App\Models\Movie;
-
+use App\Models\Serie;
+use App\Models\Episode;
+use App\Http\Controllers\EpisodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +60,6 @@ Route::get('/admin/addMovie', function () {
 });
 
 Route::post('/admin/addMovie', [MovieListController::class, 'store'])->name('store');
+
+Route::get('/episodes/create', [EpisodeController::class, 'create'])->name('episodes.create');
+Route::post('/episodes', [EpisodeController::class, 'store'])->name('episodes.store');
