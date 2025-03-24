@@ -20,18 +20,13 @@
         </div>
         @endforeach
 
-       <!-- <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="{{ asset('image/squadgame.jpeg') }}" class="card-img-top" alt="squidgame">
-                <div class="card-body">
-                    <h2 class="card-title">Squid Game</h2>
-                    <p class="card-text">It revolves around a secret contest where 456 players, all of whom are in deep financial hardship, risk their lives to play a series of deadly children's games.</p>
-                    <p class="card-text"><strong>Actors:</strong> Lee Jung, Park Hae, Kim Joo</p>
-                    <p class="card-text"><strong>Director:</strong> Hwang Dong-hyuk</p>
-                    <a href="#" class="btn btn-primary">Watch Now</a>
-                </div>
-            </div>
-        </div> -->
     </div>
+  
+    <!-- Botones para añadir nueva serie y nuevo episodio -->
+    <div class="text-center mt-4">
+        <a href="/series" class="btn btn-info">Añadir Nueva Serie</a>
+        <a href="{{ route('episodes.create') }}" class="btn btn-warning">Añadir Episodio a una Serie</a>
+    </div>
+
 </div>
 @endsection
