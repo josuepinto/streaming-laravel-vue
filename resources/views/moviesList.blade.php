@@ -7,7 +7,7 @@
         @foreach($moviesList as $movie)
         <div class="col-md-4 mb-4">
             <div class="card">
-                <img src="{{ asset($movie->image) }}" class="card-img-top" alt="Berlin">
+                <img src="{{ asset($movie->image) }}" class="card-img-top" alt="MovieImage">
                 <div class="card-body">
                     <h2 class="card-title">{{ $movie->title }}</h2>
                     <p class="card-text">{{ $movie->description }}</p>

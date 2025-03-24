@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeriesListController;
 use App\Http\Controllers\MovieListController;
+use App\Http\Controllers\UserController;
 use App\Models\Movie;
 
 
@@ -18,15 +19,25 @@ use App\Models\Movie;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user/signup');
 });
+
+//route for processing the signup form 
+Route::post('/register', [UserController::class, 'register'])->name('register');
+
+Route::get('/login', function () {
+    return view('user/login');
+});
+
+// route for processing the login form
+Route::post('/login', [UserController::class, 'login'])->name('login');
 
 // after logging the user will go to the home page of app
 // this is main page containing all info e:g films, series etc
 Route::get('/home', function () {
     $movies = Movie::all();
     return view('home', compact('movies'));
-});
+})->name('home');
 
 // this route will display the list of films
 Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');

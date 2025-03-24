@@ -11,7 +11,7 @@
             </ul>
         </div>
     @endif
-<form method="POST" action="{{ route('store') }}" enctype="multipart/farm-data">
+<form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
 <header class="banner mt-5">
     <h1>Add Movie to the List</h1>
 </header>
