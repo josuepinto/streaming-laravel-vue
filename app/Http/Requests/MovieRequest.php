@@ -26,6 +26,8 @@ class MovieRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
+            'actor' => 'required',
+            'director' => 'required',
             'year' => 'required|numeric',
             'genre' => 'required',
             'video_url' => 'required',

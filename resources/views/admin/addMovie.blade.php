@@ -1,6 +1,12 @@
 @extends('layouts.admin')
+
 @section('content')
 <div class="content">
+  @if (session('success'))
+    <div class="alert alert-success">
+      {{ session('success') }}
+    </div>
+  @endif
     <!--Aqui lista los mensajes de error si los hay-->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -17,12 +23,20 @@
 </header>
   @csrf
   <div class="mb-3">
-    <label for="title" class="form-label">Movie Name:</label>
+    <label for="title" class="form-label">Title:</label>
     <input type="text" name="title" class="form-control" value="{{ old('title') }}" id="title">
   </div>
   <div class="mb-3">
     <label for="description" class="form-label">Description:</label>
     <input type="text" name="description" class="form-control" value="{{ old('description') }}" id="description">
+  </div>
+  <div class="mb-3">
+    <label for="actor" class="form-label">Actor:</label>
+    <input type="text" name="actor" class="form-control" id="actor">
+  </div>
+  <div class="mb-3">
+    <label for="director" class="form-label">Director:</label>
+    <input type="text" name="director" class="form-control" id="director">
   </div>
   <div class="mb-3">
     <label for="genre" class="form-label">Genre:</label>

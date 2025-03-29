@@ -16,6 +16,6 @@ class MovieSeeder extends Seeder
     public function run()
     {
         //
-        Movie::factory()->count(10)->create(); // Crea 10 películas de prueba
+        Movie::factory()->count(3)->create(); // Crea 3 películas de prueba
     }
 }
