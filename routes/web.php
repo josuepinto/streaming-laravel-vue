@@ -22,17 +22,17 @@ use App\Http\Controllers\EpisodeController;
 
 Route::get('/', function () {
     return view('user/signup');
-});
+})->name('inici');
 
 //route for processing the signup form 
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
 Route::get('/login', function () {
     return view('user/login');
-});
+})->name('login');
 
 // route for processing the login form
-Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
 
 // after logging the user will go to the home page of app
 // this is main page containing all info e:g films, series etc
@@ -49,6 +49,8 @@ Route::get('/films', [MovieListController::class, 'showList'])->name('movieList'
 // Route for series list 
 Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSeries');
 
+// Route for video playing
+Route::get('/watch/{movie}', [MovieListController::class, 'showVideo'])->name('watch');
 
 // Admin routes start below
 Route::get('/admin/panel', function () {
@@ -57,7 +59,7 @@ Route::get('/admin/panel', function () {
 
 Route::get('/admin/addMovie', function () {
     return view('admin.addMovie');
-});
+})->name('addMovie');
 
 Route::post('/admin/addMovie', [MovieListController::class, 'store'])->name('store');
 
