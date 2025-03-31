@@ -30,12 +30,12 @@
 </div>
 
 <div class="container mt-5">
-    
+    <h1>Latest Release</h1>
     <div class="row">
         @foreach($movies as $movie)
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <img src="{{ $movie->image }}" class="card-img-top" alt="{{ $movie->title }}">
+                    <img src="{{ Str::startsWith($movie->image, 'http') ? $movie->image : asset('image/' . $movie->image) }}" class="card-img-top" alt="{{ $movie->title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $movie->title }}</h5>
                         <p class="card-text">{{ Str::limit($movie->description, 100) }}</p>
