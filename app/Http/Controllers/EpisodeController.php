@@ -10,7 +10,7 @@ class EpisodeController extends Controller {
 
     public function create() {
         $series = Serie::all();
-        return view('episodes.create', compact('series'));
+        return view('admin.create', compact('series'));
     }
 
     public function store(Request $request) {
@@ -24,6 +24,6 @@ class EpisodeController extends Controller {
 
         Episode::create($request->all());
 
-        return redirect()->route('series.index')->with('success', 'Episodio añadido con éxito');
+        return redirect()->route('admin.addSerie')->with('success', 'Episodio añadido con éxito');
     }
 }

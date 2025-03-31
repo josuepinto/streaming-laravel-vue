@@ -12,7 +12,7 @@
         </div>
     @endif
 <form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
-<header class="banner mt-5">
+<header class="banner mt-5 text-center">
     <h1>Add Movie to the List</h1>
 </header>
   @csrf

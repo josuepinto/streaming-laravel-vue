@@ -28,6 +28,50 @@ class SeriesListController extends Controller
     //}
 
     // now above method will create the list now we need the method that will display these list
+     // Método para mostrar el formulario de agregar serie
+     public function create()
+     {
+         return view('admin.addSerie');
+     }
+ 
+     // Método para almacenar una nueva serie
+     public function store(Request $request)
+     {
+         // Validación de los datos
+         $request->validate([
+             'name' => 'required|string|max:255',
+             'desc' => 'required|string',
+             'actor' => 'required|string',
+             'director' => 'required|string',
+             'image' => 'required|image',
+             'video_url' => 'required|url'
+         ]);
+ 
+         // Guardar la serie en la base de datos
+         $serie = new Serie();
+         $serie->name = $request->name;
+         $serie->desc = $request->desc;
+         $serie->actor = $request->actor;
+         $serie->director = $request->director;
+         $serie->video_url = $request->video_url;
+ 
+         // Subir la imagen de la serie
+         if ($request->hasFile('image')) {
+             $serie->image = $request->file('image')->store('series_images', 'public');
+         }
+ 
+         $serie->save();
+ 
+         return redirect()->route('seriesList')->with('success', 'Serie añadida con éxito');
+     }
+     public function show($id)
+{
+    // Obtener la serie por ID
+    $serie = Serie::with('episodes')->findOrFail($id);
+
+    return view('showSerie', compact('serie'));
+}
+
     public function showList() {
 
         // call the above list method to get the list of series

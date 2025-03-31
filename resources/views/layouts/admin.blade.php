@@ -29,7 +29,10 @@
                             <a class="nav-link" href="/admin/addMovie">Add New Film</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/newSerie">Add New Series</a>
+                            <a class="nav-link" href="/admin/create">Add New Episode</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/addSerie">Add New Serie</a>
                         </li>
                     </ul>
                   
