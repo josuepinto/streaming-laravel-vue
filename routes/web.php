@@ -44,6 +44,8 @@ Route::get('/home', function () {
 // this route will display the list of films
 Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');
 
+Route::get('/films/{id}', [MovieListController::class, 'show'])->name('showMovie');
+
 
 
 // Route for series list 
