@@ -6,18 +6,20 @@
     <div class="row">
         @foreach($moviesList as $movie)
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card h-100 d-flex flex-column">
                 <img src="{{ asset($movie->image) }}" class="card-img-top" alt="MovieImage">
-                <div class="card-body">
-                    <h2 class="card-title">{{ $movie->title }}</h2>
-                    <p class="card-text">{{ $movie->description }}</p>
-                    <p class="card-text"><strong>Genre:</strong> {{ $movie->genre }}</p>
-                    <p class="card-text"><strong>Year:</strong> {{ $movie->year }}</p>
-                    <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary">Watch Now</a>
-
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h2 class="card-title">{{ $movie->title }}</h2>
+                        <p class="card-text">{{ $movie->description }}</p>
+                        <p class="card-text"><strong>Genre:</strong> {{ $movie->genre }}</p>
+                        <p class="card-text"><strong>Year:</strong> {{ $movie->year }}</p>
+                    </div>
+                    <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                 </div>
             </div>
         </div>
         @endforeach
+    </div>
 </div>
 @endsection

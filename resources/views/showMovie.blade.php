@@ -21,8 +21,8 @@
         <!-- Reproductor de Video (ocupa todo el ancho) -->
         <div class="col-md-12">
             <h3 class="text-center mb-4">Watch Now</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="{{ $movie->video_url }}" allowfullscreen></iframe>
+            <div class="embed-responsive embed-responsive-16by9" style="height: 500px;">
+                <iframe class="embed-responsive-item w-100 h-100" src="{{ $movie->video_url }}" allowfullscreen></iframe>
             </div>
         </div>
     </div>
