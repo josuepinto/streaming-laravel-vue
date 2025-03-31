@@ -11,15 +11,15 @@
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-            </div>
+            </div> <br/>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
-            </div>
+            </div> <br/>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-            </div>
+            </div> <br/>
             <button type="submit" class="btn btn-primary">Signup</button>
         </form>
         <div class="mt-3">

@@ -11,9 +11,11 @@
             <div class="form-group">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Username">
             </div>
+            <br/>
             <div class="form-group">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             </div>
+            <br />
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>

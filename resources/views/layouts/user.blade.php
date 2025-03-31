@@ -14,7 +14,19 @@
     <body class="font-sans antialiased">
     <main class="container">
            @yield('content')
-        </main>
+           <footer class="bg-body-tertiary text-center">
+            <!-- Grid container -->
+            <div class="container p-4"></div>
+             <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2025 Copyright:
+                <a class="text-body" href="https://mdbootstrap.com/">PiFlix</a>
+            </div>
+            <!-- Copyright -->
+          </footer>
+    </main>
         <!--<script src="/js/app.js" defer></script>-->
     </body>
 </html>
