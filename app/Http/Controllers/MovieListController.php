@@ -58,6 +58,6 @@ class MovieListController extends Controller
         $movie = Movie::findOrFail($id);
         
         // Pasar la película a la vista 'showMovie'
-        return view('showMovie', ['movie' => $movie]);
+        return view('user.watch', ['movie' => $movie]);
     }
 }

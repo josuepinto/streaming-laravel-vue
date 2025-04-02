@@ -18,8 +18,11 @@
                         <p class="card-text">{{ $movie->description }}</p>
                         <p class="card-text"><strong>Genre:</strong> {{ $movie->genre }}</p>
                         <p class="card-text"><strong>Year:</strong> {{ $movie->year }}</p>
+                        <p class="card-text"><strong>Actor:</strong> {{ $movie->actor }}</p>
+                        <p class="card-text"><strong>Director:</strong> {{ $movie->director }}</p>
                     </div>
-                    <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
+                    
+                    <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                 </div>
             </div>
         </div>

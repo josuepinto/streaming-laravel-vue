@@ -44,7 +44,7 @@ Route::get('/home', function () {
 // this route will display the list of films
 Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');
 
-Route::get('/films/{id}', [MovieListController::class, 'show'])->name('showMovie');
+//Route::get('/films/{id}', [MovieListController::class, 'show'])->name('showMovie');
 
 
 
@@ -52,7 +52,7 @@ Route::get('/films/{id}', [MovieListController::class, 'show'])->name('showMovie
 Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSeries');
 
 // Route for video playing
-Route::get('/watch/{movie}', [MovieListController::class, 'showVideo'])->name('watch');
+Route::get('/watch/{movie}', [MovieListController::class, 'show'])->name('watch');
 
 // Admin routes start below
 Route::get('/admin/panel', function () {

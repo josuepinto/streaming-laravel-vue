@@ -15,6 +15,7 @@
         <p><strong>Description:</strong> {{ $movie->description }}</p>
         <p><strong>Actor:</strong> {{ $movie->actor }}</p>
         <p><strong>Director:</strong> {{ $movie->director }}</p>
+        <p><strong>Year:</strong> {{ $movie->year }}</p>
     </div>
     <!-- Boton para añadir peli en lista de favouritos -->
     <div class="text-right mt-4">
