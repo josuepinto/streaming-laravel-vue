@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Generator as Faker;
 use App\Models\Movie;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
@@ -16,6 +17,12 @@ class MovieFactory extends Factory
      */
     public function definition()
     {
+       // Creamos una ruta única para cada imagen
+       $imagePath = 'image/' . $this->faker->unique()->word . '.jpg';
+
+       // Generamos una imagen aleatoria y la guardamos en el directorio 'public/image'
+       $this->faker->image(public_path('image'), 640, 480, 'cats', false);
+
         return [
             //
             'title' => $this->faker->sentence(3),

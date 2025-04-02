@@ -4,7 +4,29 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <style>
+                    .card-img-top {
+            width: 100%;                /* La imagen ocupará todo el ancho del contenedor */
+            height: 350px;              /* Fijamos la altura de la imagen */
+            object-fit: cover;          /* Asegura que la imagen no se deforme */
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            flex-grow: 1;               /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
+        }
+
+        .card h2, .card p {
+            height: auto;               /* Ajusta la altura del texto automáticamente */
+        }
+
+        </style>
+      
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <title>{{ config('app.name', 'Laravel') }}</title>
@@ -67,8 +89,8 @@
             <!-- Copyright -->
           </footer>
         </main>
-        <!-- Add Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+          <!-- Bootstrap JS (incluye Popper.js necesario para algunos componentes como el carrusel) -->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

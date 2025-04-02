@@ -3,17 +3,18 @@
 @section('content')
 
 <div class="container-fluid">
-<h1 class="mb-4 text-center">Piflix</h1>
+    <h1 class="mb-4 text-center">Piflix</h1>
+    
     <!-- Banner principal -->
     <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            @foreach($movies->take(5) as $index => $movie) 
+            @foreach($movies->take(20) as $index => $movie) 
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <img src="{{ $movie->image }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="{{ $movie->title }}">
                     <div class="carousel-caption d-none d-md-block">
                         <h2>{{ $movie->title }}</h2>
                         <p>{{ Str::limit($movie->description, 150) }}</p>
-                        <a href="https://www.youtube.com/watch?v=fpeXTzkoT_k&pp=ygUNYmVybGluIHNlcmllcw%3D%3D" class="btn btn-primary">Ver Ahora</a>
+                        <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary">Watch Now</a>
                     </div>
                 </div>
             @endforeach
@@ -29,19 +30,21 @@
     </div>
 </div>
 
+<!-- Películas debajo del carrusel -->
 <div class="container mt-5">
-    <h1>Latest Release</h1>
     <div class="row">
         @foreach($movies as $movie)
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    <img src="{{ Str::startsWith($movie->image, 'http') ? $movie->image : asset('image/' . $movie->image) }}" class="card-img-top" alt="{{ $movie->title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $movie->title }}</h5>
-                        <p class="card-text">{{ Str::limit($movie->description, 100) }}</p>
-                        <p><strong>Género:</strong> {{ $movie->genre }}</p>
-                        <p><strong>Año:</strong> {{ $movie->year }}</p>
-                        <a href="#" class="btn btn-primary">Ver Película</a>
+            <div class="col-md-4 p-3">
+                <div class="card mb-3 h-100 d-flex flex-column">
+                    <img src="{{ $movie->image }}" class="card-img-top" alt="{{ $movie->title }}">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{{ $movie->title }}</h5>
+                            <p class="card-text">{{ Str::limit($movie->description, 100) }}</p>
+                            <p><strong>Género:</strong> {{ $movie->genre }}</p>
+                            <p><strong>Año:</strong> {{ $movie->year }}</p>
+                        </div>
+                        <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                     </div>
                 </div>
             </div>

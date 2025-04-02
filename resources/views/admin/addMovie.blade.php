@@ -9,16 +9,17 @@
   @endif
     <!--Aqui lista los mensajes de error si los hay-->
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
-<header class="banner mt-5">
+<header class="banner mt-5 text-center">
     <h1>Add Movie to the List</h1>
 </header>
   @csrf

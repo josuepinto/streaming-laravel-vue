@@ -12,7 +12,7 @@ class Serie extends Model
     // define the columns of series table
     protected $fillable = [
         'image',
-        'name,',
+        'name',
         'desc',
         'actor',
         'director',

@@ -44,6 +44,8 @@ Route::get('/home', function () {
 // this route will display the list of films
 Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');
 
+Route::get('/films/{id}', [MovieListController::class, 'show'])->name('showMovie');
+
 
 
 // Route for series list 
@@ -63,5 +65,14 @@ Route::get('/admin/addMovie', function () {
 
 Route::post('/admin/addMovie', [MovieListController::class, 'store'])->name('store');
 
-Route::get('/episodes/create', [EpisodeController::class, 'create'])->name('episodes.create');
+Route::get('/admin/create', [EpisodeController::class, 'create'])->name('episodes.create');
+
 Route::post('/episodes', [EpisodeController::class, 'store'])->name('episodes.store');
+
+// Ruta para el formulario de agregar una serie
+Route::get('/admin/addSerie', [SeriesListController::class, 'create'])->name('series.create');
+
+// Ruta para almacenar la serie
+Route::post('/admin/storeSerie', [SeriesListController::class, 'store'])->name('series.store');
+
+Route::get('/seriesList/{id}', [SeriesListController::class, 'show'])->name('series.show');
