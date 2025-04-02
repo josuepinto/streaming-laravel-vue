@@ -8,6 +8,7 @@ use App\Http\Requests\MovieRequest;
 
 class MovieListController extends Controller
 {
+    // this is method to store the film into db coming from the admin form
     public function store(MovieRequest $request)
     {
 
@@ -27,6 +28,8 @@ class MovieListController extends Controller
         $movie = new Movie();
         $movie->title = $request->input('title');
         $movie->description = $request->input('description');
+        $movie->actor = $request->input('actor');
+        $movie->director = $request->input('director');
         $movie->genre = $request->input('genre');
         $movie->year = $request->input('year');
         $movie->video_url = $request->input('video_url');

@@ -38,6 +38,6 @@ class UserController extends Controller
         if ($user && $user->password === $request->password) {
             return redirect()->route('home');
         }
-        return redirect()->route('/');
+        return redirect()->route('inici');
     }
 }

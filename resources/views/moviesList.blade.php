@@ -1,6 +1,10 @@
 @extends('layouts.disenyo')
 
 @section('content')
+
+@php 
+    use Illuminate\Support\Str; 
+@endphp
 <div class="content mt-4">
     <h1 class="text-center mb-4">Movie List</h1>
     <div class="row">

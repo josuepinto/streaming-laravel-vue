@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->text('actor');
+            $table->text('director');
             $table->year('year');
             $table->string('genre');
             $table->string('image'); // URL o nombre del archivo
