@@ -6,25 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <style>
-                    .card-img-top {
-            width: 100%;                /* La imagen ocupará todo el ancho del contenedor */
-            height: 350px;              /* Fijamos la altura de la imagen */
-            object-fit: cover;          /* Asegura que la imagen no se deforme */
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-body {
-            flex-grow: 1;               /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
-        }
-
-        .card h2, .card p {
-            height: auto;               /* Ajusta la altura del texto automáticamente */
-        }
-
+                   
         </style>
       
 
