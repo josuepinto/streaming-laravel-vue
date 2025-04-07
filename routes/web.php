@@ -38,7 +38,8 @@ Route::post('/login', [UserController::class, 'login']);
 // this is main page containing all info e:g films, series etc
 Route::get('/home', function () {
     $movies = Movie::all();
-    return view('home', compact('movies'));
+    $series = Serie::all();
+    return view('home', compact('movies', 'series'));
 })->name('home');
 
 // this route will display the list of films
@@ -53,6 +54,11 @@ Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSer
 
 // Route for video playing
 Route::get('/watch/{movie}', [MovieListController::class, 'show'])->name('watch');
+
+// Route for favourte the movie/ or add in the list of movie
+Route::get('/favourite', function () {
+    return view('user/favourite');
+});
 
 // Admin routes start below
 Route::get('/admin/panel', function () {
