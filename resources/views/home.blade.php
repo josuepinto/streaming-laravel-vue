@@ -14,7 +14,7 @@
                     <div class="carousel-caption d-none d-md-block">
                         <h2>{{ $movie->title }}</h2>
                         <p>{{ Str::limit($movie->description, 150) }}</p>
-                        <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary">Watch Now</a>
+                        <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                     </div>
                 </div>
             @endforeach
@@ -44,7 +44,7 @@
                             <p><strong>Género:</strong> {{ $movie->genre }}</p>
                             <p><strong>Año:</strong> {{ $movie->year }}</p>
                         </div>
-                        <a href="{{ route('showMovie', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
+                        <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                     </div>
                 </div>
             </div>
