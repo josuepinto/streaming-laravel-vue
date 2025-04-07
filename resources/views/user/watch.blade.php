@@ -17,8 +17,8 @@
         <p><strong>Director:</strong> {{ $movie->director }}</p>
         <p><strong>Year:</strong> {{ $movie->year }}</p>
     </div>
-    <!-- Boton para añadir peli en lista de favouritos -->
+    <!-- Boton para añadir peli en lista de favouritos paginas-->
     <div class="text-right mt-4">
-        <a href="/series" class="btn btn-info">Add to Favourite</a>
+        <a href="/favourite" class="btn btn-info">Add to Favourite</a>
     </div>
 @endsection

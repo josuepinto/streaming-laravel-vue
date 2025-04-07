@@ -14,7 +14,6 @@
                     <div class="carousel-caption d-none d-md-block">
                         <h2>{{ $movie->title }}</h2>
                         <p>{{ Str::limit($movie->description, 150) }}</p>
-                        <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                     </div>
                 </div>
             @endforeach
@@ -32,6 +31,7 @@
 
 <!-- Películas debajo del carrusel -->
 <div class="container mt-5">
+    <h1 class="text-right mb-4">Latest Releases</h1>
     <div class="row">
         @foreach($movies as $movie)
             <div class="col-md-4 p-3">
@@ -40,11 +40,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
                             <h5 class="card-title">{{ $movie->title }}</h5>
-                            <p class="card-text">{{ Str::limit($movie->description, 100) }}</p>
-                            <p><strong>Género:</strong> {{ $movie->genre }}</p>
-                            <p><strong>Año:</strong> {{ $movie->year }}</p>
                         </div>
-                        <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                     </div>
                 </div>
             </div>
