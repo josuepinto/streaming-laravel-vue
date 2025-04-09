@@ -60,4 +60,44 @@ class MovieListController extends Controller
         // Pasar la película a la vista 'showMovie'
         return view('user.watch', ['movie' => $movie]);
     }
+
+    // for updating the movie
+    public function edit($id) {
+        $movie = Movie::findOrFail($id);
+        return view('admin.update', compact('movie'));
+    }
+
+    // for update and save changes to db
+    public function update(Request $request, $id) {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'actor' => 'nullable|string|max:255',
+            'director' => 'nullable|string|max:255',
+            'genre' => 'nullable|string|max:255',
+            'year' => 'nullable|numeric',
+            'video_url' => 'nullable|url',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        $movie = Movie::findOrFail($id);
+    
+        $movie->title = $request->title;
+        $movie->description = $request->description;
+        $movie->actor = $request->actor;
+        $movie->director = $request->director;
+        $movie->genre = $request->genre;
+        $movie->year = $request->year;
+        $movie->video_url = $request->video_url;
+    
+        // Update image only if new image uploaded
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('image', 'public');
+            $movie->image = 'image/' . $imagePath;
+        }
+    
+        $movie->save();
+    
+        return redirect()->route('adminPanel')->with('success', 'Movie updated successfully!');
+    }
 }

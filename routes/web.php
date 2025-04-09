@@ -62,14 +62,21 @@ Route::get('/favourite', function () {
 
 // Admin routes start below
 Route::get('/admin/panel', function () {
-    return view('admin.panel');
-});
+    $movies = Movie::all();
+    return view('admin.panel', compact('movies'));
+})->name('adminPanel');
 
 Route::get('/admin/addMovie', function () {
     return view('admin.addMovie');
 })->name('addMovie');
 
 Route::post('/admin/addMovie', [MovieListController::class, 'store'])->name('store');
+
+// route for DISPLAYING the form forupdating the movie
+Route::get('/admin/editMovie/{id}', [MovieListController::class, 'edit'])->name('editMovie');
+
+// handle the form for updating the movie
+Route::put('/admin/updateMovie/{id}', [MovieListController::class, 'update'])->name('updateMovie');
 
 Route::get('/admin/create', [EpisodeController::class, 'create'])->name('episodes.create');
 
