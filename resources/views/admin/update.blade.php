@@ -22,7 +22,7 @@
 @csrf
 @method('PUT')
 <header class="banner mt-5 text-center">
-    <h1>UPDATE Movie</h1>
+    <h1>UPDATE $movie->title</h1>
 </header>
   @csrf
   <div class="mb-3">

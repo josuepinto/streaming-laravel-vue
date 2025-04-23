@@ -33,6 +33,18 @@
 <div class="container mt-5">
     <h1 class="text-right mb-4">Latest Releases</h1>
     <div class="row">
+        @foreach($series as $serie)
+            <div class="col-md-4 p-3">
+                <div class="card mb-3 h-100 d-flex flex-column">
+                    <img src="{{ $serie->image }}" class="card-img-top" alt="{{ $serie->name }}">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{{ $serie->name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
         @foreach($movies as $movie)
             <div class="col-md-4 p-3">
                 <div class="card mb-3 h-100 d-flex flex-column">
