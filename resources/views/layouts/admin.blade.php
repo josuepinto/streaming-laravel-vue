@@ -34,6 +34,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/addSerie">Add New Serie</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Home User</a>
+                        </li>
+                     
                     </ul>
                   
                 </div>

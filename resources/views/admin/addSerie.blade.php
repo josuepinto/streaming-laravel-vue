@@ -49,6 +49,12 @@
                 <input type="url" id="video_url" name="video_url" class="form-control" required>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="num_episode">Numero de capitulos:</label>
+                <input type="number" id="num_episode" name="num_episode" class="form-control" required>
+            </div>
+        </div>
     </div>
 
     <button type="submit" class="btn btn-primary mt-3">Guardar Serie</button>
