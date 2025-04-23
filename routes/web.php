@@ -78,9 +78,10 @@ Route::get('/admin/editMovie/{id}', [MovieListController::class, 'edit'])->name(
 // handle the form for updating the movie
 Route::put('/admin/updateMovie/{id}', [MovieListController::class, 'update'])->name('updateMovie');
 
-Route::get('/admin/create', [EpisodeController::class, 'create'])->name('episodes.create');
+Route::match(['get', 'post'], '/admin/addEpisode', [EpisodeController::class, 'create'])->name('addEpisode');
 
 Route::post('/episodes', [EpisodeController::class, 'store'])->name('episodes.store');
+
 
 // Ruta para el formulario de agregar una serie
 Route::get('/admin/addSerie', [SeriesListController::class, 'create'])->name('series.create');
@@ -89,3 +90,4 @@ Route::get('/admin/addSerie', [SeriesListController::class, 'create'])->name('se
 Route::post('/admin/storeSerie', [SeriesListController::class, 'store'])->name('series.store');
 
 Route::get('/seriesList/{id}', [SeriesListController::class, 'show'])->name('series.show');
+
