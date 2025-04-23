@@ -44,7 +44,8 @@ class SeriesListController extends Controller
              'actor' => 'required|string',
              'director' => 'required|string',
              'image' => 'required|image',
-             'video_url' => 'required|url'
+             'video_url' => 'required|url',
+             'num_episode' => 'required|integer'
          ]);
  
          // Guardar la serie en la base de datos
@@ -54,6 +55,7 @@ class SeriesListController extends Controller
          $serie->actor = $request->actor;
          $serie->director = $request->director;
          $serie->video_url = $request->video_url;
+         $serie->num_episode = $request->num_episode;
  
          // Subir la imagen de la serie
          if ($request->hasFile('image')) {
@@ -62,7 +64,7 @@ class SeriesListController extends Controller
  
          $serie->save();
  
-         return redirect()->route('seriesList')->with('success', 'Serie añadida con éxito');
+         return redirect()->route('series')->with('success', 'Serie añadida con éxito');
      }
      public function show($id)
 {
