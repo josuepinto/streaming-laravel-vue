@@ -63,7 +63,8 @@ Route::get('/favourite', function () {
 // Admin routes start below
 Route::get('/admin/panel', function () {
     $movies = Movie::all();
-    return view('admin.panel', compact('movies'));
+    $series = Serie::all();
+    return view('admin.panel', compact('movies', 'series'));
 })->name('adminPanel');
 
 Route::get('/admin/addMovie', function () {
@@ -72,11 +73,14 @@ Route::get('/admin/addMovie', function () {
 
 Route::post('/admin/addMovie', [MovieListController::class, 'store'])->name('store');
 
-// route for DISPLAYING the form forupdating the movie
+// route for DISPLAYING the form for updating the movie
 Route::get('/admin/editMovie/{id}', [MovieListController::class, 'edit'])->name('editMovie');
 
 // handle the form for updating the movie
 Route::put('/admin/updateMovie/{id}', [MovieListController::class, 'update'])->name('updateMovie');
+
+// route for deleting the movie
+Route::delete('/admin/deleteMovie/{id}', [MovieListController::class, 'borrar'])->name('deleteMovie');
 
 Route::match(['get', 'post'], '/admin/addEpisode', [EpisodeController::class, 'create'])->name('addEpisode');
 

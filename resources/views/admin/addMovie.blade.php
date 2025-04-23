@@ -33,23 +33,23 @@
   </div>
   <div class="mb-3">
     <label for="actor" class="form-label">Actor:</label>
-    <input type="text" name="actor" class="form-control" id="actor">
+    <input type="text" name="actor" class="form-control" value="{{ old('actor') }}" id="actor">
   </div>
   <div class="mb-3">
     <label for="director" class="form-label">Director:</label>
-    <input type="text" name="director" class="form-control" id="director">
+    <input type="text" name="director" class="form-control" value="{{ old('director') }}" id="director">
   </div>
   <div class="mb-3">
     <label for="genre" class="form-label">Genre:</label>
-    <input type="text" name="genre" class="form-control" id="genre">
+    <input type="text" name="genre" class="form-control" value="{{ old('genre') }}" id="genre">
   </div>
   <div class="mb-3">
     <label for="year" class="form-label">Year:</label>
-    <input type="text" name="year" class="form-control" id="year">
+    <input type="text" name="year" class="form-control" value="{{ old('year') }}" id="year">
   </div>
   <div class="mb-3">
     <label for="video_url" class="form-label">Video_url:</label>
-    <input type="text" name="video_url" class="form-control" id="video_url">
+    <input type="text" name="video_url" class="form-control" value="{{ old('video_url') }}" id="video_url">
   </div>
   <div class="mb-3">
     <label for="image" class="form-label">Image:</label>

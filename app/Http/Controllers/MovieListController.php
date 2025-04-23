@@ -42,7 +42,7 @@ class MovieListController extends Controller
 
         $movie->save();
 
-        return redirect()->route('movieList')->with('success', 'Película añadida con éxito');
+        return redirect()->back()->with('success', 'Película añadida con éxito');
 
     }
 
@@ -98,6 +98,13 @@ class MovieListController extends Controller
     
         $movie->save();
     
-        return redirect()->route('adminPanel')->with('success', 'Movie updated successfully!');
+        return redirect()->back()->with('success', 'Movie updated successfully!');
+    }
+
+    // for deleting the movie
+    public function borrar($id) {
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
+        return redirect()->back()->with('success', 'Movie deleted successfully!');
     }
 }
