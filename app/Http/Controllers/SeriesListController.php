@@ -64,15 +64,26 @@ class SeriesListController extends Controller
  
          $serie->save();
  
-         return redirect()->route('series')->with('success', 'Serie añadida con éxito');
+         return redirect()->route('series.store')->with('success', 'Serie añadida con éxito');
      }
-     public function show($id)
-{
-    // Obtener la serie por ID
-    $serie = Serie::with('episodes')->findOrFail($id);
-
-    return view('showSerie', compact('serie'));
-}
+     public function show($id, Request $request)
+     {
+         $serie = Serie::with('episodes')->findOrFail($id);
+         $seasonFilter = $request->query('season');
+     
+         $episodes = $serie->episodes;
+     
+         // Si hay temporada seleccionada, filtrar
+         if ($seasonFilter) {
+             $episodes = $episodes->where('season', $seasonFilter);
+         }
+     
+         // Obtener todas las temporadas únicas para el desplegable
+         $seasons = $serie->episodes->pluck('season')->unique()->sort();
+     
+         return view('showSerie', compact('serie', 'episodes', 'seasons', 'seasonFilter'));
+     }
+     
 
     public function showList() {
 

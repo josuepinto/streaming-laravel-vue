@@ -13,23 +13,32 @@ class EpisodeController extends Controller {
         $series = Serie::all();
         $selectedSerie = null;
         $seasons = collect();
-        $selectedSeason = null;
+        $selectedSeason = 1; // Por defecto siempre Temporada 1
         $nextEpisode = null;
+        $autoMessage = null;
 
         if ($request->isMethod('post') && $request->filled('serie_id')) {
             $selectedSerie = Serie::find($request->serie_id);
             $seasons = Episode::where('serie_id', $selectedSerie->id)
                               ->pluck('season')->unique()->sort();
 
+            // Si el usuario seleccionó manualmente una temporada
             if ($request->filled('season')) {
                 $selectedSeason = $request->season;
-                $nextEpisode = Episode::where('serie_id', $selectedSerie->id)
-                                       ->where('season', $selectedSeason)
-                                       ->count() + 1;
+            }
+
+            // Calcular siguiente número de episodio
+            $nextEpisode = Episode::where('serie_id', $selectedSerie->id)
+                                  ->where('season', $selectedSeason)
+                                  ->count() + 1;
+
+            // Mensaje si no hay temporadas todavía
+            if ($seasons->isEmpty()) {
+                $autoMessage = 'Esta serie no tiene temporadas registradas. Se creará automáticamente la Temporada 1.';
             }
         }
 
-        return view('admin.addEpisode', compact('series', 'selectedSerie', 'seasons', 'selectedSeason', 'nextEpisode'));
+        return view('admin.addEpisode', compact('series', 'selectedSerie', 'seasons', 'selectedSeason', 'nextEpisode', 'autoMessage'));
     }
 
     public function store(Request $request)
@@ -39,7 +48,8 @@ class EpisodeController extends Controller {
             'title' => 'required|string|max:255',
             'season' => 'required|integer|min:1',
             'episode_number' => 'required|integer|min:1',
-            'video_url' => 'required|url'
+            'video_url' => 'required|url',
+            'image' => 'nullable|image|max:2048'
         ]);
 
         $exists = Episode::where('serie_id', $request->serie_id)
@@ -51,11 +61,16 @@ class EpisodeController extends Controller {
             return back()->withErrors(['episode_number' => 'Este número de episodio ya existe en la temporada.'])->withInput();
         }
 
-        Episode::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('episodes', 'public');
+        }
+
+        Episode::create($data);
 
         return redirect()->route('addEpisode')->with('success', 'Episodio añadido con éxito');
     }
 }
-
-
+    
 ?>

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('season');
             $table->integer('episode_number');
             $table->string('video_url');
+            $table->string('image')->nullable();
+
             $table->timestamps();
         });
     }
