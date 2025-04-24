@@ -64,7 +64,8 @@ class SeriesListController extends Controller
  
          $serie->save();
  
-         return redirect()->route('series.store')->with('success', 'Serie añadida con éxito');
+         return redirect()->route('series.create')->with('success', 'Serie añadida con éxito');
+
      }
      public function show($id, Request $request)
      {
