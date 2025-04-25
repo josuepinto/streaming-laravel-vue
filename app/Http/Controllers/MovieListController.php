@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Favourite;
 use App\Http\Requests\MovieRequest;
 
 class MovieListController extends Controller
@@ -59,6 +60,25 @@ class MovieListController extends Controller
         
         // Pasar la película a la vista 'showMovie'
         return view('user.watch', ['movie' => $movie]);
+    }
+
+    // to add peli into favorite list
+    public function addToFavourite($movieId)
+    {
+        // check if already added
+        if (!Favourite::where('movie_id', $movieId)->exists()) {
+            Favourite::create([
+                'movie_id' => $movieId
+            ]);
+        }
+
+        return redirect('/favourite')->with('success', 'Movie added to favourites!');
+    }
+
+    public function showFavourites()
+    {
+        $favourites = Favourite::with('movie')->get();
+        return view('user.favourite', compact('favourites'));
     }
 
     // for updating the movie

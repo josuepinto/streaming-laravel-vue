@@ -56,9 +56,14 @@ Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSer
 Route::get('/watch/{movie}', [MovieListController::class, 'show'])->name('watch');
 
 // Route for favourte the movie/ or add in the list of movie
-Route::get('/favourite', function () {
-    return view('user/favourite');
+Route::get('/favourite', [MovieListController::class, 'showFavourites']);
+
+Route::get('/favourite/add/{id}', [MovieListController::class, 'addToFavourite'])->name('favourite.add');
+
+Route::get('/subs', function () {
+    return view('user.subscription');
 });
+
 
 // Admin routes start below
 Route::get('/admin/panel', function () {

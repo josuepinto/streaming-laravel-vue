@@ -36,7 +36,8 @@
         @foreach($series as $serie)
             <div class="col-md-4 p-3">
                 <div class="card mb-3 h-100 d-flex flex-column">
-                    <img src="{{ $serie->image }}" class="card-img-top" alt="{{ $serie->name }}">
+                    <!-- Botón para ver detalles de la serie -->
+                    <a href="{{ route('series.show', $serie->id) }}"><img src="{{ $serie->image }}" class="card-img-top" alt="{{ $serie->name }}"></a>
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
                             <h5 class="card-title">{{ $serie->name }}</h5>
@@ -48,7 +49,7 @@
         @foreach($movies as $movie)
             <div class="col-md-4 p-3">
                 <div class="card mb-3 h-100 d-flex flex-column">
-                    <img src="{{ $movie->image }}" class="card-img-top" alt="{{ $movie->title }}">
+                <a href="{{ route('watch', $movie->id) }}"><img src="{{ $movie->image }}" class="card-img-top" alt="{{ $movie->title }}"></a>
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
                             <h5 class="card-title">{{ $movie->title }}</h5>

@@ -16,6 +16,7 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             </div>
             <br />
+            <input type="hidden" name="role" value="user"> <!-- Por defecto el rol es user -->
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>

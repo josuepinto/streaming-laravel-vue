@@ -22,7 +22,12 @@
                         <p class="card-text"><strong>Director:</strong> {{ $movie->director }}</p>
                     </div>
                     
-                    <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
+                       <!-- Boton para añadir peli en lista de favouritos paginas-->
+          
+                        <a href="{{ route('favourite.add', $movie->id) }}" class="btn btn-info mt-auto mx-auto">Add to Favourite</a>
+                    </div>
                 </div>
             </div>
         </div>
