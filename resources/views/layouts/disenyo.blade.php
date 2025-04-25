@@ -41,6 +41,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Setting</a></li>
+                                <li><a class="dropdown-item" href="/subs">Subscription</a></li>
                                 <li><a class="dropdown-item" href="/admin/panel">Admin</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/login">Logout</a></li>
