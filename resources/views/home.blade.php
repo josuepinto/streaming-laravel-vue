@@ -29,8 +29,13 @@
     </div>
 </div>
 
-<!-- Películas debajo del carrusel -->
+<!-- Películas & series debajo del carrusel -->
 <div class="container mt-5">
+    @if ($movies->isEmpty() && $series->isEmpty())
+        <div class="alert alert-warning text-center">
+            No movies or series found for your search.
+        </div>
+    @endif
     <h1 class="text-right mb-4">Latest Releases</h1>
     <div class="row">
         @foreach($series as $serie)

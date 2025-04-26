@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\SeriesListController;
 use App\Http\Controllers\MovieListController;
 use App\Http\Controllers\UserController;
@@ -36,9 +37,17 @@ Route::post('/login', [UserController::class, 'login']);
 
 // after logging the user will go to the home page of app
 // this is main page containing all info e:g films, series etc
-Route::get('/home', function () {
-    $movies = Movie::all();
-    $series = Serie::all();
+Route::get('/home', function (Request $request) {
+    $search = $request->input('search');
+
+    if ($search) {
+        $movies = Movie::where('title', 'like', "%{$search}%")->get();
+        $series = Serie::where('name', 'like', "%{$search}%")->get();
+    } else {
+        $movies = Movie::all();
+        $series = Serie::all();
+    }
+
     return view('home', compact('movies', 'series'));
 })->name('home');
 
@@ -63,6 +72,9 @@ Route::get('/favourite/add/{id}', [MovieListController::class, 'addToFavourite']
 Route::get('/subs', function () {
     return view('user.subscription');
 });
+
+Route::post('/select-plan', [MovieListController::class, 'selectPlan'])->name('select.plan');
+
 
 
 // Admin routes start below
