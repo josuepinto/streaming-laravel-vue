@@ -24,7 +24,7 @@ class MovieListController extends Controller
         ]);
 
 
-        // Guardar la serie en la base de datos
+        // Guardar la peli en la base de datos
 
         $movie = new Movie();
         $movie->title = $request->input('title');
@@ -47,12 +47,14 @@ class MovieListController extends Controller
 
     }
 
+    // mostrar lista de peli
     public function showList() {
         // reterive the list from db
         $moviesList = Movie::all();
         return view('moviesList', ['moviesList'=>$moviesList]);
     }
 
+    
     public function show($id)
     {
         // Obtener la película por ID
@@ -81,7 +83,29 @@ class MovieListController extends Controller
         return view('user.favourite', compact('favourites'));
     }
 
-    // for updating the movie
+    // subscription plan form
+    public function selectPlan(Request $request)
+    {
+        $request->validate([
+            'plan' => 'required',
+            'cn' => 'required',
+            'ed' => 'required',
+            'cvv' => 'required',
+        ], [
+            'plan.required' => 'Please select plan before!',
+            'cn.required' => 'Enter valid card number',
+            'ed.required' => 'Provide expiry date of your card',
+            'cvv.required' => 'Enter CVV number of 3 digits',
+        ]);
+
+        $selectedPlan = $request->plan;
+        
+        return redirect()->back()->with('message', 'You have successfully selected the ' .$selectedPlan . ' plan.');
+
+    }
+
+    // Admin related actions
+    // for updating/editing the movie
     public function edit($id) {
         $movie = Movie::findOrFail($id);
         return view('admin.update', compact('movie'));
