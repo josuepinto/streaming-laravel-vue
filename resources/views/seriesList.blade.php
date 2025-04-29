@@ -10,7 +10,8 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100 d-flex flex-column">
                 <!-- Imagen de la serie -->
-                <img src="{{ asset($serie->image) }}" class="card-img-top" alt="{{ $serie->name }}">
+                <img src="{{ asset('storage/' . $serie->image) }}" class="card-img-top" alt="{{ $serie->name }}" style="height: 300px; object-fit: cover;">
+
                 
                 <div class="card-body d-flex flex-column justify-content-between">
                     <div>
