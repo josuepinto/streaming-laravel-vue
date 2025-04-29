@@ -14,35 +14,52 @@
         </div>
         <main class="container">
             
-        <nav class="navbar bg-secondary  border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
-            <div class="container-fluid">
-                <img src="image/logo.jpeg" width="30" height="30" alt="">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin/panel">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/addMovie">Add New Film</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/addEpisode">Add New Episode</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/addSerie">Add New Serie</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home">Home User</a>
-                        </li>
-                     
-                    </ul>
-                  
-                </div>
-            </div>
-        </nav>
+        <nav class="navbar bg-secondary border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
+    <div class="container-fluid">
+        <img src="{{ asset('image/logo.jpeg') }}" width="30" height="30" alt="Logo PiFlix">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- Botón Home Admin Panel -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('adminPanel') }}">Home</a>
+                </li>
+
+                <!-- Botón Agregar nueva Película -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('addMovie') }}">Add New Film</a>
+                </li>
+
+                <!-- Botón Agregar nuevo Episodio -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('addEpisode') }}">Add New Episode</a>
+                </li>
+
+                <!-- Botón Agregar nueva Serie -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('series.create') }}">Add New Serie</a>
+                </li>
+
+                <!-- 🔥 NUEVO BOTÓN: Ver Series Panel 🔥 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.seriesPanel') }}">Series Panel</a>
+                </li>
+
+                <!-- Botón Volver a Home Usuario -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Home User</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
 
           @yield('content')
 
