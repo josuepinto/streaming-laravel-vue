@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Movie;
 use App\Models\Favourite;
 use App\Http\Requests\MovieRequest;
@@ -49,6 +50,11 @@ class MovieListController extends Controller
 
     // mostrar lista de peli
     public function showList() {
+        // check if user is logged in through session
+        if (!Session::has('user_id')) {
+            return redirect('/login')->with('error', 'You need to login to access this page');
+        }
+        
         // reterive the list from db
         $moviesList = Movie::all();
         return view('moviesList', ['moviesList'=>$moviesList]);
