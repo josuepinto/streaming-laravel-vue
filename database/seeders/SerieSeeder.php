@@ -27,7 +27,7 @@ class SerieSeeder extends Seeder
         ]);
         Serie::create([
             'name' => 'Squid Game',
-            'image' => 'series_images/ejemplo.jpg',
+            'image' => 'series_images/eBl9C7w2BWx97fsSMuJFjWrxZzfX6QS2Ka2UEhE3.jpg',
             'actor' => 'Lee Jung, Park',
             'director' => 'Hwang Dong-hyuk',
             'desc' => "It revolves around a secret contest where 456 players, all of whom are in deep financial hardship, risk their lives to play a series of deadly children's games.",
@@ -36,7 +36,7 @@ class SerieSeeder extends Seeder
         ]);
         Serie::create([
             'name' => 'Toxic Town',
-            'image' => 'series_images/ejemplo.jpg',
+            'image' => 'series_images/O2qfHkU1Fqci9hN9UujVT86ro3JY45fJoTYQD7FG.jpg',
             'actor' => 'Jodie, Joe, Aimee Lou',
             'director' => 'Minkie & Spiro',
             'desc' => 'Families fighting for justice after children in the Northamptonshire town were born with birth defects, believed to be caused by industrial pollution.',
