@@ -44,7 +44,7 @@
                                 <li><a class="dropdown-item" href="/subs">Subscription</a></li>
                                 <li><a class="dropdown-item" href="/admin/panel">Admin</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/login">Logout</a></li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
                         </li>
 

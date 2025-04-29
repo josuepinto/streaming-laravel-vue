@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
 class UserController extends Controller
@@ -34,9 +35,13 @@ class UserController extends Controller
         // find user by name 
         $user = User::where('name', $request->name)->first();
 
-        // if user exists and password is correct
+        // if user exists and password is correct then put them into session
         if ($user && $user->password === $request->password) {
+            Session::put('user_id', $user->id);
+            Session::put('user_name', $user->name);
             return redirect()->route('home');
+        } else {
+            return redirect()->back()->with('error', 'Invalid credentials please try again or create an account 1st');
         }
         return redirect()->route('inici');
     }

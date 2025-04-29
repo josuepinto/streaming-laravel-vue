@@ -9,7 +9,7 @@
 
 <div class="container-fluid">
     <h1 class="mb-4 text-center">Piflix</h1>
-    
+    <h2>Welcome {{ $userName }} to Piflix </h2>
     <!-- Banner principal -->
     <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">

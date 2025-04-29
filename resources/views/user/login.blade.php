@@ -2,6 +2,18 @@
 
 @section('content')
 <div class="row justify-content-center mt-5">
+@if (session('success'))
+    <div class="alert alert-success">
+      {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+      <div class="alert alert-danger">
+          {{ session('error') }}
+      </div>
+@endif
+
   <div class="col-md-6">    
     <div class="login-container">
       <h1>Login to PiFLIX</h1>
@@ -19,6 +31,9 @@
             <input type="hidden" name="role" value="user"> <!-- Por defecto el rol es user -->
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        <div class="mt-3">
+            <p>Create account  <a href="{{ route('inici') }}">Signup here</a></p>
+        </div>
     </div>
   </div>
 </div>

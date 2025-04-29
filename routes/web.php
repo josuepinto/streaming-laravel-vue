@@ -38,6 +38,12 @@ Route::post('/login', [UserController::class, 'login']);
 // after logging the user will go to the home page of app
 // this is main page containing all info e:g films, series etc
 Route::get('/home', function (Request $request) {
+    if (!Session::has('user_id')) {
+        return redirect('/login')->with('error', 'You need to login to access this page');
+    }
+
+    $userName = Session::get('user_name');
+
     $search = $request->input('search');
 
     if ($search) {
@@ -48,7 +54,7 @@ Route::get('/home', function (Request $request) {
         $series = Serie::all();
     }
 
-    return view('home', compact('movies', 'series'));
+    return view('home', compact('movies', 'series', 'userName'));
 })->name('home');
 
 // this route will display the list of films
@@ -75,7 +81,11 @@ Route::get('/subs', function () {
 
 Route::post('/select-plan', [MovieListController::class, 'selectPlan'])->name('select.plan');
 
-
+// route for logout with delete from session
+Route::get('/logout', function () {
+    Session::flush();
+    return redirect('/login')->with('success', 'Logged out successfully!');
+})->name('logout');
 
 // Admin routes start below
 Route::get('/admin/panel', function () {
