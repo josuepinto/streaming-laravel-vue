@@ -4,12 +4,12 @@
 <div class="container mt-5">
     <h1 class="mb-4">Episodios de la Serie: <strong>{{ $serie->name }}</strong></h1>
 
-    {{-- Mensaje de éxito --}}
+    {{-- ✅ Mensaje de éxito --}}
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- Botón para agregar un nuevo episodio directamente para esta serie --}}
+    {{-- ✅ Botón para agregar un nuevo episodio directamente para esta serie --}}
     <div class="mb-3 text-end">
         <form method="POST" action="{{ route('addEpisode') }}">
             @csrf
@@ -18,7 +18,7 @@
         </form>
     </div>
 
-    {{-- Tabla de episodios --}}
+    {{-- ✅ Tabla de episodios --}}
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -35,9 +35,12 @@
                 <tr>
                     <td>
                         @if($episode->image)
-                            <img src="{{ asset('storage/' . $episode->image) }}" alt="Banner" width="120" height="70" style="object-fit: cover;">
+                            <img src="{{ asset('storage/' . $episode->image) }}"
+                                 alt="Banner del episodio"
+                                 class="img-thumbnail object-fit-cover w-100"
+                                 style="height: 250px; max-width: 250px;">
                         @else
-                            Sin imagen
+                            <span class="text-muted">Sin imagen</span>
                         @endif
                     </td>
                     <td>{{ $episode->title }}</td>
@@ -45,10 +48,10 @@
                     <td>{{ $episode->episode_number }}</td>
                     <td><a href="{{ $episode->video_url }}" target="_blank">Ver video</a></td>
                     <td class="d-flex gap-2">
-                        {{-- Editar episodio --}}
+                        {{-- ✏️ Editar episodio --}}
                         <a href="{{ route('episodes.edit', $episode->id) }}" class="btn btn-primary btn-sm">✏️ Editar</a>
 
-                        {{-- Eliminar episodio --}}
+                        {{-- 🗑️ Eliminar episodio --}}
                         <form method="POST" action="{{ route('episodes.destroy', $episode->id) }}">
                             @csrf
                             @method('DELETE')
@@ -58,7 +61,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-center">No hay episodios registrados para esta serie.</td>
+                    <td colspan="6" class="text-center text-muted">No hay episodios registrados para esta serie.</td>
                 </tr>
             @endforelse
         </tbody>

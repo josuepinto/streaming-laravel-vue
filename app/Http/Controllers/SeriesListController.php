@@ -135,11 +135,22 @@ public function adminEpisodes($id)
 
 
 // En SeriesListController.php
-public function seriesPanel()
+public function seriesPanel(Request $request)
 {
-    $seriesList = Serie::all();
+    // Si hay una búsqueda activa, filtramos por el nombre de la serie
+    $search = $request->query('search');
+    $seriesList = Serie::query();
+
+    if ($search) {
+        $seriesList->where('name', 'like', '%' . $search . '%');
+    }
+
+    $seriesList = $seriesList->get();
+      // Pasamos el resultado a la vista
+
     return view('admin.seriesPanel', compact('seriesList'));
 }
+
 
 
 }
