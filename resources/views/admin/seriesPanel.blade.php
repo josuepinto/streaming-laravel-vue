@@ -34,7 +34,7 @@
             @forelse($seriesList as $serie)
                 <tr>
                     <td>
-                    <img src="{{ asset('storage/' . $serie->image) }}"
+                    <img src="{{ asset($serie->image) }}"
      alt="{{ $serie->name }}"
      class="img-thumbnail object-fit-cover w-100"
      style="height: 250px;  max-width: 350px;">
