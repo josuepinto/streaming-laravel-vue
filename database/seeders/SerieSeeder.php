@@ -18,7 +18,7 @@ class SerieSeeder extends Seeder
         // Ex to make a serie using Serie model
         Serie::create([
             'name' => 'Berlin',
-            'image' => 'series_images/2kmuOg9cDRV0PIl6XDaZsijTt6U7btmtDOx9nG2Q.jpg',
+            'image' => 'image/itachi.jpg',
             'actor' => 'Pedro Alonso, Joel Sanchez, Maria Isabel',
             'director' => 'Alex Pina',
             'desc' => 'The Energy of Love. During his glory days, Berlin assembles a gang in Paris for an almost impossible heist for 44M €.',
@@ -27,7 +27,7 @@ class SerieSeeder extends Seeder
         ]);
         Serie::create([
             'name' => 'Squid Game',
-            'image' => 'series_images/2kmuOg9cDRV0PIl6XDaZsijTt6U7btmtDOx9nG2Q.jpg',
+            'image' => 'image/kakashi.jpg',
             'actor' => 'Lee Jung, Park',
             'director' => 'Hwang Dong-hyuk',
             'desc' => "It revolves around a secret contest where 456 players, all of whom are in deep financial hardship, risk their lives to play a series of deadly children's games.",
@@ -36,7 +36,7 @@ class SerieSeeder extends Seeder
         ]);
         Serie::create([
             'name' => 'Toxic Town',
-            'image' => 'series_images/2kmuOg9cDRV0PIl6XDaZsijTt6U7btmtDOx9nG2Q.jpg',
+            'image' => 'image/kurama.jpg',
             'actor' => 'Jodie, Joe, Aimee Lou',
             'director' => 'Minkie & Spiro',
             'desc' => 'Families fighting for justice after children in the Northamptonshire town were born with birth defects, believed to be caused by industrial pollution.',

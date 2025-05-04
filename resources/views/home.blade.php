@@ -13,7 +13,7 @@
     <!-- Banner principal -->
     <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            @foreach($movies->take(20) as $index => $movie) 
+            @foreach($movies->take(20) as $index => $movie)
                 @php
                     // ✅ Si la imagen es de storage (subida), usamos asset('storage/...').
                     // ✅ Si es una imagen de seeders/factory (por ejemplo en public/image/...), la usamos directamente.
@@ -28,7 +28,7 @@
                 </div>
             @endforeach
         </div>
-        
+
         <!-- Controles del carrusel -->
         <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -55,7 +55,7 @@
                 <div class="card mb-3 h-100 d-flex flex-column">
                     <a href="{{ route('series.show', $serie->id) }}">
                         <!-- ✅ Las imágenes de series siempre van por storage, porque se suben por formulario -->
-                        <img src="{{ asset('storage/' . $serie->image) }}"
+                        <img src="{{ asset($serie->image) }}"
                              class="card-img-top"
                              alt="{{ $serie->name }}"
                              style="height: 300px; object-fit: cover;">
