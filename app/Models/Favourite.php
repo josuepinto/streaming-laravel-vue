@@ -16,5 +16,9 @@ class Favourite extends Model
     {
         return $this->belongsTo(Movie::class);
     }
+    public function serie()
+{
+    return $this->belongsTo(Serie::class);
+}
     
 }

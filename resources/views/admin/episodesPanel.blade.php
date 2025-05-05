@@ -33,16 +33,19 @@
         <tbody>
             @forelse($episodes as $episode)
                 <tr>
-                    <td>
-                        @if($episode->image)
-                            <img src="{{ asset('storage/' . $episode->image) }}"
-                                 alt="Banner del episodio"
-                                 class="img-thumbnail object-fit-cover w-100"
-                                 style="height: 250px; max-width: 250px;">
-                        @else
-                            <span class="text-muted">Sin imagen</span>
-                        @endif
-                    </td>
+                <td>
+    @php
+        $imagePath = $episode->image 
+            ? asset('storage/' . $episode->image) 
+            : asset($serie->image); // aquí asumimos que ya es tipo 'image/xxx.jpg'
+    @endphp
+    <img 
+        src="{{ asset($serie->image) }}"
+        alt="Imagen del episodio"
+        class="img-thumbnail object-fit-cover w-100"
+        style="height: 250px; max-width: 250px;">
+</td>
+
                     <td>{{ $episode->title }}</td>
                     <td>{{ $episode->season }}</td>
                     <td>{{ $episode->episode_number }}</td>
@@ -55,7 +58,9 @@
                         <form method="POST" action="{{ route('episodes.destroy', $episode->id) }}">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este episodio?')">🗑️ Eliminar</button>
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este episodio?')">
+                                🗑️ Eliminar
+                            </button>
                         </form>
                     </td>
                 </tr>

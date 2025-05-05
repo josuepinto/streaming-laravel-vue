@@ -22,6 +22,7 @@
 
                     <!-- Botón para ver detalles de la serie -->
                     <a href="{{ route('series.show', $serie->id) }}" class="btn btn-primary mt-auto mx-auto">Ver Detalles</a>
+            
                 </div>
             </div>
         </div>
