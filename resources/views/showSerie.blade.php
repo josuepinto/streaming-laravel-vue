@@ -2,10 +2,18 @@
 
 @section('content')
 <div class="container mt-4">
+
     <div class="row mb-4">
         <div class="col-md-4">
-            <img src="{{ asset('storage/' . $serie->image) }}" alt="{{ $serie->name }}" class="img-fluid rounded shadow">
+            {{-- Mostrar correctamente imagen de la serie --}}
+            @php
+                $serieImagePath = Str::startsWith($serie->image, 'series_images/')
+                    ? asset('storage/' . $serie->image)
+                    : asset($serie->image); // para imágenes como 'image/itachi.jpg'
+            @endphp
+            <img src="{{ $serieImagePath }}" alt="{{ $serie->name }}" class="img-fluid rounded shadow">
         </div>
+
         <div class="col-md-8">
             <h1 class="display-4">{{ $serie->name }}</h1>
             <p><strong>Director:</strong> {{ $serie->director }}</p>
@@ -37,15 +45,20 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body d-flex flex-column">
-                        @if($episode->image)
-    <img src="{{ asset('storage/' . $episode->image) }}"
-         alt="Banner del episodio"
-         class="card-img-top object-fit-cover"
-         style="height: 400px; width: 100%; object-fit: cover;">
-@endif
+                            @php
+                                $episodeImagePath = Str::startsWith($episode->image, 'episodes/')
+                                    ? asset('storage/' . $episode->image)
+                                    : asset($episode->image);
+                            @endphp
 
+                            @if($episode->image)
+                                <img src="{{ $episodeImagePath }}"
+                                     alt="Banner del episodio"
+                                     class="card-img-top"
+                                     style="height: 400px; width: 100%; object-fit: cover;">
+                            @endif
 
-                            <h5 class="card-title">{{ $episode->title }}</h5>
+                            <h5 class="card-title mt-2">{{ $episode->title }}</h5>
                             <p class="card-text mb-1">Temporada: {{ $episode->season }}</p>
                             <p class="card-text mb-3">Episodio: {{ $episode->episode_number }}</p>
                             <a href="{{ $episode->video_url }}" target="_blank" class="mt-auto btn btn-primary">Ver Episodio</a>
