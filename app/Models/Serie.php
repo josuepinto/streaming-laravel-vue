@@ -19,7 +19,10 @@ class Serie extends Model
         'video_url',
         'num_episode'
     ];
-    public function episodes() {
-        return $this->hasMany(Episode::class);
-    }
+    // En App\Models\Serie.php
+public function episodes()
+{
+    return $this->hasMany(\App\Models\Episode::class);
+}
+
 }
