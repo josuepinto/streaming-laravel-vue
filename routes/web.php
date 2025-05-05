@@ -53,6 +53,8 @@ Route::get('/favourite/add/{id}', [MovieListController::class, 'addToFavourite']
 Route::get('/subs', fn() => view('user.subscription'));
 Route::post('/select-plan', [MovieListController::class, 'selectPlan'])->name('select.plan');
 
+// Recomendaciones
+Route::get('/recomends', [MovieListController::class, 'showActionMovies'])->name('recomends');
 
 // ==============================
 // 🔧 RUTAS ADMIN
