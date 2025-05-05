@@ -18,7 +18,7 @@ class SerieSeeder extends Seeder
             'director' => 'Alex Pina',
             'desc' => 'The Energy of Love. During his glory days, Berlin assembles a gang in Paris for an almost impossible heist for 44M €.',
             'num_episode'=> 2,
-            'video_url' => 'https://www.youtube.com/watch?v=fpeXTzkoT_k'
+            'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx'
         ]);
 
         $berlin->episodes()->createMany([
@@ -26,14 +26,14 @@ class SerieSeeder extends Seeder
                 'title' => 'Berlin Episodio 1',
                 'season' => 1,
                 'episode_number' => 1,
-                'video_url' => 'https://www.youtube.com/watch?v=abc123',
+                'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx',
                 'image' => $berlin->image // ← Reutiliza imagen de la serie
             ],
             [
                 'title' => 'Berlin Episodio 2',
                 'season' => 1,
                 'episode_number' => 2,
-                'video_url' => 'https://www.youtube.com/watch?v=def456',
+                'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx',
                 'image' => $berlin->image
             ]
         ]);
@@ -46,7 +46,7 @@ class SerieSeeder extends Seeder
             'director' => 'Hwang Dong-hyuk',
             'desc' => "A deadly game for 456 players in deep financial hardship.",
             'num_episode' => 2,
-            'video_url' => 'https://www.youtube.com/watch?v=SbAKYgfYET8'
+            'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx'
         ]);
 
         $squid->episodes()->createMany([
@@ -54,14 +54,14 @@ class SerieSeeder extends Seeder
                 'title' => 'Squid Game Episodio 1',
                 'season' => 1,
                 'episode_number' => 1,
-                'video_url' => 'https://www.youtube.com/watch?v=ghi789',
+                'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx',
                 'image' => $squid->image
             ],
             [
                 'title' => 'Squid Game Episodio 2',
                 'season' => 1,
                 'episode_number' => 2,
-                'video_url' => 'https://www.youtube.com/watch?v=jkl012',
+                'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx',
                 'image' => $squid->image
             ]
         ]);
@@ -74,7 +74,7 @@ class SerieSeeder extends Seeder
             'director' => 'Minkie & Spiro',
             'desc' => 'Families fighting for justice after children... pollution.',
             'num_episode' => 2,
-            'video_url' => 'https://www.youtube.com/watch?v=ie6WSX0py58'
+            'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx'
         ]);
 
         $toxic->episodes()->createMany([
@@ -82,14 +82,14 @@ class SerieSeeder extends Seeder
                 'title' => 'Toxic Town Episodio 1',
                 'season' => 1,
                 'episode_number' => 1,
-                'video_url' => 'https://www.youtube.com/watch?v=mno345',
+                'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx',
                 'image' => $toxic->image
             ],
             [
                 'title' => 'Toxic Town Episodio 2',
                 'season' => 1,
                 'episode_number' => 2,
-                'video_url' => 'https://www.youtube.com/watch?v=pqr678',
+                'video_url' => 'https://www.youtube.com/embed/tlfUk4MDqZc?si=_3OwYEHfqS1tAKqx',
                 'image' => $toxic->image
             ]
         ]);
