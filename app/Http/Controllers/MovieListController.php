@@ -157,4 +157,11 @@ class MovieListController extends Controller
         $movie->delete();
         return redirect()->back()->with('success', 'Movie deleted successfully!');
     }
+
+    // for recommend movie
+    // here for simplicity we just display movies of action genre
+    public function showActionMovies() {
+        $actionMovies = Movie::where('genre', 'Action')->get();
+        return view('user.recomended', ['actionMovies'=>$actionMovies]);
+    }
 }
