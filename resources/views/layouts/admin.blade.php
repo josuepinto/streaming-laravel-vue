@@ -13,7 +13,7 @@
             <h1>PiFlix</h1>
         </div>
         <main class="container">
-            
+
         <nav class="navbar bg-secondary border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
     <div class="container-fluid">
         <img src="{{ asset('image/logo.jpeg') }}" width="30" height="30" alt="Logo PiFlix">
@@ -49,10 +49,11 @@
                     <a class="nav-link" href="{{ route('admin.seriesPanel') }}">Series Panel</a>
                 </li>
 
-                <!-- Botón Volver a Home Usuario -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Home User</a>
+               <li class="nav-item">
+                     <a class="nav-link" href="/">Vue App</a>
                 </li>
+
+
 
             </ul>
         </div>

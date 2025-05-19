@@ -2,86 +2,110 @@
   <div class="container mt-4">
     <h2 class="mb-4 text-center">🎬 Movie List</h2>
 
-    <div v-if="movies.data && movies.data.length" class="row">
-      <div
-        v-for="movie in movies.data"
-        :key="movie.id"
-        class="col-md-4 mb-4"
-      >
-        <router-link
-          :to="`/movie/${movie.id}`"
-          class="text-decoration-none text-dark"
-        >
-          <div class="card h-100">
-            <img
-              :src="movie.image"
-              class="card-img-top"
-              alt="Movie Image"
-              style="object-fit: cover; height: 400px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">{{ movie.title }}</h5>
-              <p class="card-text">{{ movie.description }}</p>
-              <p class="mb-1"><strong>Genre:</strong> {{ movie.genre }}</p>
-              <p class="mb-1"><strong>Year:</strong> {{ movie.year }}</p>
-              <p class="mb-1"><strong>Actor:</strong> {{ movie.actor }}</p>
-              <p class="mb-1"><strong>Director:</strong> {{ movie.director }}</p>
-            </div>
+    <!-- Mostrar lista si hay películas -->
+    <div v-if="movies.length" class="row">
+      <div v-for="movie in movies" :key="movie.id" class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img :src="movie.image" class="card-img-top" style="height: 400px; object-fit: cover;" />
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+            <p class="card-text">{{ movie.description }}</p>
+            <p><strong>Genre:</strong> {{ movie.genre }}</p>
+            <p><strong>Year:</strong> {{ movie.year }}</p>
+            <p><strong>Actor:</strong> {{ movie.actor }}</p>
+            <p><strong>Director:</strong> {{ movie.director }}</p>
           </div>
-        </router-link>
+          <div class="card-footer d-flex justify-content-between">
+            <router-link :to="`/movie/${movie.id}`" class="btn btn-primary">▶ Watch</router-link>
+            <router-link :to="`/movie/${movie.id}/edit`" class="btn btn-warning">✏ Edit</router-link>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mt-4 text-center" v-if="movies.total > movies.per_page">
+    <div v-else class="text-center">
+      <p>No movies available.</p>
+    </div>
+
+    <!-- Paginación -->
+    <div class="text-center mt-4" v-if="!isSearch && totalPages > 1">
       <button
-        class="btn btn-secondary me-2"
-        @click="changePage(movies.prev_page_url)"
-        :disabled="!movies.prev_page_url"
+        class="btn btn-outline-secondary me-2"
+        @click="changePage(currentPage - 1)"
+        :disabled="currentPage === 1"
       >
         ← Previous
       </button>
+
       <button
-        class="btn btn-primary"
-        @click="changePage(movies.next_page_url)"
-        :disabled="!movies.next_page_url"
+        v-for="page in totalPages"
+        :key="page"
+        @click="changePage(page)"
+        class="btn me-1"
+        :class="{
+          'btn-success': page === currentPage,
+          'btn-outline-primary': page !== currentPage
+        }"
+      >
+        {{ page }}
+      </button>
+
+      <button
+        class="btn btn-outline-primary ms-2"
+        @click="changePage(currentPage + 1)"
+        :disabled="currentPage === totalPages"
       >
         Next →
       </button>
     </div>
-
-    <div v-if="!movies.data || !movies.data.length" class="text-center mt-5">
-      <p>No movies available.</p>
-    </div>
   </div>
 </template>
+
 
 <script>
 export default {
   data() {
     return {
-      movies: {}
-    }
+      movies: [],
+      currentPage: 1,
+      totalPages: 1,
+      isSearch: false
+    };
   },
-mounted() {
-  const storedURL = sessionStorage.getItem('goToURL') || '/api/movies'
-  this.getMovies(storedURL)
-  sessionStorage.removeItem('goToURL')
-},
-
+  mounted() {
+    this.loadMovies();
+  },
+  watch: {
+    '$route.query.q': 'loadMovies'
+  },
   methods: {
-    getMovies(url) {
+    loadMovies() {
+      const search = this.$route.query.q;
+      this.isSearch = !!search;
+
+      const url = search
+        ? `/api/movies/search?q=${encodeURIComponent(search)}`
+        : `/api/movies?page=${this.currentPage}`;
+
       fetch(url)
         .then(res => res.json())
-        .then(data => (this.movies = data))
-        .catch(err => console.error('Error loading movies:', err))
+        .then(data => {
+          if (this.isSearch) {
+            this.movies = data;
+            this.totalPages = 1;
+          } else {
+            this.movies = data.data;
+            this.totalPages = data.last_page;
+            this.currentPage = data.current_page;
+          }
+        });
     },
-    changePage(url) {
-  if (url) {
-    sessionStorage.setItem('lastMovieListURL', url)
-    this.getMovies(url)
-  }
-}
-
+    changePage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+        this.loadMovies();
+      }
+    }
   }
 }
 </script>

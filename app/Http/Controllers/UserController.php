@@ -37,6 +37,9 @@ class UserController extends Controller
 
         // if user exists and password is correct then put them into session
         if ($user && $user->password === $request->password) {
+            // ✅ Guardar último acceso
+            $user->last_login = now();
+            $user->save();
             Session::put('user_id', $user->id);
             Session::put('user_name', $user->name);
             return redirect('/');

@@ -15,14 +15,20 @@
             <li class="nav-item">
               <router-link to="/" class="nav-link" exact>Home</router-link>
             </li>
+            <li class="nav-item">
+                <router-link to="/novelties" class="nav-link">🆕 Novedades</router-link>
+            </li>
+            <li><router-link to="/admin/panel" class="nav-link">Admin</router-link></li>
+
             <!-- Puedes añadir más rutas aquí -->
           </ul>
 
-          <!-- ⚠ Este buscador apunta a Laravel directamente -->
-          <form class="d-flex" @submit.prevent="searchMovies">
-            <input v-model="searchQuery" class="form-control me-2" type="search" placeholder="Search movies or series" />
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+         <!-- Buscador en MainLayout.vue -->
+<form class="d-flex" @submit.prevent="searchMovies">
+  <input v-model="searchQuery" class="form-control me-2" type="search" placeholder="Search movies or series" />
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
         </div>
       </div>
     </nav>
@@ -50,11 +56,12 @@ export default {
       searchQuery: ''
     }
   },
-  methods: {
-    searchMovies() {
-      // Puedes manejar la búsqueda como quieras, o emitir evento, o usar Vuex, etc.
-      alert(`Buscar: ${this.searchQuery}`)
-    }
+ methods: {
+  searchMovies() {
+    // Redirige a la ruta de resultados pasándole la búsqueda
+    this.$router.push({ path: '/', query: { q: this.searchQuery } });
   }
+}
+
 }
 </script>

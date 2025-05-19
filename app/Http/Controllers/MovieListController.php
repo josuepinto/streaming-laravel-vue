@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Movie;
 use App\Models\Favourite;
 use App\Http\Requests\MovieRequest;
+use Illuminate\Support\Facades\File;
 
 class MovieListController extends Controller
 {
@@ -170,6 +171,16 @@ class MovieListController extends Controller
     return Movie::paginate(4); // cambia el número si quieres más o menos
     }
 
+
+    public function getAvailableImages()
+{
+    $images = File::files(public_path('image'));
+    $imageNames = collect($images)->map(function ($file) {
+        return 'image/' . $file->getFilename();
+    });
+
+    return response()->json($imageNames);
+}
 
 
 
