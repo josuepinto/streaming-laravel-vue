@@ -120,23 +120,24 @@ Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSer
 Route::get('/api/check-session', function () {
     return response()->json(['loggedIn' => Session::has('user_id')]);
 });
+
 Route::get('/api/novelties', function () {
     $userId = Session::get('user_id');
+    $lastLogin = Session::get('last_login_before'); // ⬅️ NUEVO
 
     if (!$userId) {
         return response()->json(['error' => 'Not authenticated'], 403);
     }
 
-    $user = \App\Models\User::findOrFail($userId);
-
-    if (!$user->last_login) {
-        return response()->json([]);
+    if (!$lastLogin) {
+        return response()->json([]); // nada que comparar
     }
 
-    return \App\Models\Movie::where('created_at', '>', $user->last_login)
+    return \App\Models\Movie::where('created_at', '>', $lastLogin)
                 ->orderBy('created_at', 'desc')
                 ->get();
 });
+
 
 //  RUTAS PARA VUE
 Route::get('/{any}', function () {

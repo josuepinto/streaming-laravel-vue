@@ -37,6 +37,7 @@ class UserController extends Controller
 
         // if user exists and password is correct then put them into session
         if ($user && $user->password === $request->password) {
+            Session::put('last_login_before', $user->last_login);
             // ✅ Guardar último acceso
             $user->last_login = now();
             $user->save();
@@ -47,6 +48,6 @@ class UserController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invalid credentials please try again or create an account 1st');
         }
-        return redirect()->route('inici');
+       
     }
 }
