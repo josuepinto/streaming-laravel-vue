@@ -67,3 +67,7 @@ Route::get('/images', function () {
     return collect($files)->map(fn($file) => $file->getFilename());
 });
 
+// api.php
+Route::get('/movies/all', function () {
+    return \App\Models\Movie::all();
+});

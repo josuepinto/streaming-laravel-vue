@@ -19,7 +19,9 @@
                 <router-link to="/novelties" class="nav-link">🆕 Novedades</router-link>
             </li>
             <li><router-link to="/admin/panel" class="nav-link">Admin</router-link></li>
-
+            <li class="nav-item">
+               <a class="nav-link" href="/logout">🚪 Logout</a>
+            </li>
             <!-- Puedes añadir más rutas aquí -->
           </ul>
 
