@@ -23,23 +23,39 @@
 </template>
 
 <script>
+import { getMovieFromIndexedDB, saveMovieToIndexedDB } from '../videoService.js'
+
+
 export default {
   data() {
     return {
       movie: {}
     }
   },
-  mounted() {
+  async mounted() {
     const id = this.$route.params.id
-    fetch(`/api/movies/${id}`)
-      .then(res => res.json())
-      .then(data => (this.movie = data))
-      .catch(err => console.error('Error loading movie:', err))
+
+    // Primero intentamos cargar desde IndexedDB
+    const fromIndexedDB = await getMovieFromIndexedDB(id)
+
+    if (fromIndexedDB && fromIndexedDB.video_url) {
+      console.log('🎥 Video cargado desde IndexedDB');
+      this.movie = fromIndexedDB
+    } else {
+      // Si no está, lo pedimos al backend
+      console.log('🌐 Cargando desde API de Laravel...');
+      fetch(`/api/movies/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          this.movie = data
+          saveMovieToIndexedDB(data) // lo guardamos en HD para el futuro
+        })
+        .catch(err => console.error('Error loading movie:', err))
+    }
   },
   methods: {
     goBack() {
       const savedURL = sessionStorage.getItem('lastMovieListURL') || '/api/movies'
-      // Redirige al listado forzando la recarga con la URL paginada guardada
       this.$router.push({ name: 'Home' })
       this.$nextTick(() => {
         sessionStorage.setItem('goToURL', savedURL)
