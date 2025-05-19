@@ -54,18 +54,18 @@ class MovieListController extends Controller
         if (!Session::has('user_id')) {
             return redirect('/login')->with('error', 'You need to login to access this page');
         }
-        
+
         // reterive the list from db
         $moviesList = Movie::all();
         return view('moviesList', ['moviesList'=>$moviesList]);
     }
 
-    
+
     public function show($id)
     {
         // Obtener la película por ID
         $movie = Movie::findOrFail($id);
-        
+
         // Pasar la película a la vista 'showMovie'
         return view('user.watch', ['movie' => $movie]);
     }
@@ -105,7 +105,7 @@ class MovieListController extends Controller
         ]);
 
         $selectedPlan = $request->plan;
-        
+
         return redirect()->back()->with('message', 'You have successfully selected the ' .$selectedPlan . ' plan.');
 
     }
@@ -129,9 +129,9 @@ class MovieListController extends Controller
             'video_url' => 'nullable|url',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         $movie = Movie::findOrFail($id);
-    
+
         $movie->title = $request->title;
         $movie->description = $request->description;
         $movie->actor = $request->actor;
@@ -139,15 +139,15 @@ class MovieListController extends Controller
         $movie->genre = $request->genre;
         $movie->year = $request->year;
         $movie->video_url = $request->video_url;
-    
+
         // Update image only if new image uploaded
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('image', 'public');
             $movie->image = 'image/' . $imagePath;
         }
-    
+
         $movie->save();
-    
+
         return redirect()->back()->with('success', 'Movie updated successfully!');
     }
 
@@ -164,4 +164,14 @@ class MovieListController extends Controller
         $actionMovies = Movie::where('genre', 'Action')->get();
         return view('user.recomended', ['actionMovies'=>$actionMovies]);
     }
+
+
+    public function apiIndex(){
+    return Movie::paginate(4); // cambia el número si quieres más o menos
+    }
+
+
+
+
 }
+

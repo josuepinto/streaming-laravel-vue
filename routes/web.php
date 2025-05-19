@@ -17,7 +17,9 @@ use App\Models\Serie;
 */
 
 // 🔐 Autenticación
-Route::get('/', fn() => view('user/signup'))->name('inici');
+//Route::get('/', fn() => view('user/signup'))->name('inici');
+Route::get('/register', fn() => view('user.signup'))->name('inici');
+
 Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::get('/login', fn() => view('user/login'))->name('login');
 Route::post('/login', [UserController::class, 'login']);
@@ -27,7 +29,7 @@ Route::get('/logout', function () {
 })->name('logout');
 
 // 🏠 Home con buscador (películas y series)
-Route::get('/home', function (Request $request) {
+/*Route::get('/home', function (Request $request) {
     if (!Session::has('user_id')) {
         return redirect('/login')->with('error', 'You need to login to access this page');
     }
@@ -39,7 +41,7 @@ Route::get('/home', function (Request $request) {
     $series = $search ? Serie::where('name', 'like', "%{$search}%")->get() : Serie::all();
 
     return view('home', compact('movies', 'series', 'userName'));
-})->name('home');
+})->name('home');*/
 
 // 🎬 Películas
 Route::get('/films', [MovieListController::class, 'showList'])->name('movieList');
@@ -109,3 +111,16 @@ Route::delete('/admin/episodes/delete/{id}', [EpisodeController::class, 'destroy
 // 🌐 Series públicas
 // ----------------------
 Route::get('/series', [SeriesListController::class, 'showList'])->name('listaSeries');
+
+
+
+
+
+//-------------
+Route::get('/api/check-session', function () {
+    return response()->json(['loggedIn' => Session::has('user_id')]);
+});
+//  RUTAS PARA VUE
+Route::get('/{any}', function () {
+    return view('vue');
+})->where('any', '.*');

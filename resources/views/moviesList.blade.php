@@ -2,8 +2,8 @@
 
 @section('content')
 
-@php 
-    use Illuminate\Support\Str; 
+@php
+    use Illuminate\Support\Str;
 @endphp
 <div class="content mt-4">
     <h1 class="text-center mb-4">Movie List</h1>
@@ -21,11 +21,11 @@
                         <p class="card-text"><strong>Actor:</strong> {{ $movie->actor }}</p>
                         <p class="card-text"><strong>Director:</strong> {{ $movie->director }}</p>
                     </div>
-                    
+
                     <div class="d-flex gap-2">
                         <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
                        <!-- Boton para añadir peli en lista de favouritos paginas-->
-          
+
                         <a href="{{ route('favourite.add', $movie->id) }}" class="btn btn-info mt-auto mx-auto">Add to Favourite</a>
                     </div>
                 </div>

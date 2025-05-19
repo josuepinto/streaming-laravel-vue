@@ -29,17 +29,18 @@ class UserController extends Controller
 
     }
 
-    // login 
+    // login
     public function login(Request $request)
     {
-        // find user by name 
+        // find user by name
         $user = User::where('name', $request->name)->first();
 
         // if user exists and password is correct then put them into session
         if ($user && $user->password === $request->password) {
             Session::put('user_id', $user->id);
             Session::put('user_name', $user->name);
-            return redirect()->route('home');
+            return redirect('/');
+
         } else {
             return redirect()->back()->with('error', 'Invalid credentials please try again or create an account 1st');
         }
