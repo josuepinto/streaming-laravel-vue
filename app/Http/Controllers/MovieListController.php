@@ -11,22 +11,20 @@ use Illuminate\Support\Facades\File;
 
 class MovieListController extends Controller
 {
-    // this is method to store the film into db coming from the admin form
+    // =============================================
+    // 🎯 Método para guardar una nueva película
+    // ✅ Se usa en el panel admin: Vista addMovie.blade.php
+    // =============================================
     public function store(MovieRequest $request)
     {
-
-        // Validación de los datos
         $request->validate([
-            'title' => 'required|string|max:255', // El título es obligatorio, debe ser una cadena y no superar los 255 caracteres
-            'description' => 'required|string', // La descripción es obligatoria y debe ser una cadena
-            'genre' => 'required|string', // El género es obligatorio y debe ser una cadena
-            'year' => 'required|integer|digits:4', // El año es obligatorio, debe ser un número entero y de 4 dígitos
-            'video_url' => 'required|url', // La URL del video es obligatoria y debe ser una URL válida
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // La imagen es obligatoria, debe ser una imagen y no superar 2MB
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'genre' => 'required|string',
+            'year' => 'required|integer|digits:4',
+            'video_url' => 'required|url',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-
-        // Guardar la peli en la base de datos
 
         $movie = new Movie();
         $movie->title = $request->input('title');
@@ -36,45 +34,46 @@ class MovieListController extends Controller
         $movie->genre = $request->input('genre');
         $movie->year = $request->input('year');
         $movie->video_url = $request->input('video_url');
+
+        // 🖼️ Guardamos imagen en public/image
         $image = $request->file('image');
-        // Genera un nombre único para la imagen basado en la marca de tiempo
         $imageName = time() . '_' . $image->getClientOriginalName();
-        // Guarda la imagen en el directorio 'public/image'
         $image->move(public_path('image'), $imageName);
-        $movie->image = 'image/' . $imageName;// Almacenar solo el nombre de la imagen en la base de datos
+        $movie->image = 'image/' . $imageName;
 
         $movie->save();
 
         return redirect()->back()->with('success', 'Película añadida con éxito');
-
     }
 
-    // mostrar lista de peli
+    // =============================================
+    // 🎬 Muestra listado de películas (Blade)
+    // ⚠️ Solo usado en vista antigua: moviesList.blade.php
+    // =============================================
     public function showList() {
-        // check if user is logged in through session
         if (!Session::has('user_id')) {
             return redirect('/login')->with('error', 'You need to login to access this page');
         }
 
-        // reterive the list from db
         $moviesList = Movie::all();
         return view('moviesList', ['moviesList'=>$moviesList]);
     }
 
-
+    // =============================================
+    // ▶️ Mostrar detalles de película en Blade
+    // ⚠️ Solo usado en versión Blade, no en Vue
+    // =============================================
     public function show($id)
     {
-        // Obtener la película por ID
         $movie = Movie::findOrFail($id);
-
-        // Pasar la película a la vista 'showMovie'
         return view('user.watch', ['movie' => $movie]);
     }
 
-    // to add peli into favorite list
+    // =============================================
+    // ❤️ Añadir película a favoritos
+    // =============================================
     public function addToFavourite($movieId)
     {
-        // check if already added
         if (!Favourite::where('movie_id', $movieId)->exists()) {
             Favourite::create([
                 'movie_id' => $movieId
@@ -90,7 +89,9 @@ class MovieListController extends Controller
         return view('user.favourite', compact('favourites'));
     }
 
-    // subscription plan form
+    // =============================================
+    // 💳 Guardar selección de plan de suscripción
+    // =============================================
     public function selectPlan(Request $request)
     {
         $request->validate([
@@ -108,17 +109,20 @@ class MovieListController extends Controller
         $selectedPlan = $request->plan;
 
         return redirect()->back()->with('message', 'You have successfully selected the ' .$selectedPlan . ' plan.');
-
     }
 
-    // Admin related actions
-    // for updating/editing the movie
+    // =============================================
+    // ✏️ Mostrar película a editar (formulario admin)
+    // =============================================
     public function edit($id) {
         $movie = Movie::findOrFail($id);
         return view('admin.update', compact('movie'));
     }
 
-    // for update and save changes to db
+    // =============================================
+    // 💾 Guardar cambios en la película
+    // ✅ Relacionado con el criterio 05_01 de Vue
+    // =============================================
     public function update(Request $request, $id) {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -141,7 +145,7 @@ class MovieListController extends Controller
         $movie->year = $request->year;
         $movie->video_url = $request->video_url;
 
-        // Update image only if new image uploaded
+        // ✅ Solo actualiza imagen si se subió una nueva
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('image', 'public');
             $movie->image = 'image/' . $imagePath;
@@ -152,37 +156,42 @@ class MovieListController extends Controller
         return redirect()->back()->with('success', 'Movie updated successfully!');
     }
 
-    // for deleting the movie
+    // =============================================
+    // ❌ Eliminar película
+    // =============================================
     public function borrar($id) {
         $movie = Movie::findOrFail($id);
         $movie->delete();
         return redirect()->back()->with('success', 'Movie deleted successfully!');
     }
 
-    // for recommend movie
-    // here for simplicity we just display movies of action genre
+    // =============================================
+    // ⭐ Recomendaciones → solo género 'Action'
+    // =============================================
     public function showActionMovies() {
         $actionMovies = Movie::where('genre', 'Action')->get();
         return view('user.recomended', ['actionMovies'=>$actionMovies]);
     }
 
-
+    // =============================================
+    // 🔁 API para Vue — devuelve películas paginadas
+    // ✅ Criterio 03_01 y 06_01: Lista de películas
+    // =============================================
     public function apiIndex(){
-    return Movie::paginate(4); // cambia el número si quieres más o menos
+        return Movie::paginate(4); // se usa en Vue para paginación de MovieList
     }
 
-
+    // =============================================
+    // 📸 Devuelve las imágenes disponibles (por nombre)
+    // ✅ Usado en Vue para editar películas sin romper ruta de imagen
+    // =============================================
     public function getAvailableImages()
-{
-    $images = File::files(public_path('image'));
-    $imageNames = collect($images)->map(function ($file) {
-        return 'image/' . $file->getFilename();
-    });
+    {
+        $images = File::files(public_path('image'));
+        $imageNames = collect($images)->map(function ($file) {
+            return 'image/' . $file->getFilename(); // ruta relativa usada en Vue
+        });
 
-    return response()->json($imageNames);
+        return response()->json($imageNames);
+    }
 }
-
-
-
-}
-

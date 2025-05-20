@@ -8,46 +8,61 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    // add a new user with signup form
+    // ============================================
+    // ✅ REGISTRO DE USUARIOS
+    // ============================================
     public function register(Request $request)
     {
-        // validate the data
+        // Validamos los campos del formulario de registro
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required|string',
+            'name' => 'required|string',     // nombre obligatorio
+            'email' => 'required|string',    // email obligatorio
+            'password' => 'required|string', // contraseña obligatoria
         ]);
 
-        // make a new user
+        // Creamos un nuevo usuario con los datos recibidos
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => $request->password, // ❗Sin hash por simplicidad (idealmente se encripta)
         ]);
 
+        // Redirigimos al login una vez registrado
         return redirect()->route('login');
-
     }
 
-    // login
+    // ============================================
+    // ✅ INICIO DE SESIÓN DEL USUARIO
+    // Relacionado con el criterio 04_01
+    // ya que aquí se registra el último acceso anterior
+    // ============================================
     public function login(Request $request)
     {
-        // find user by name
+        // Buscamos el usuario por nombre (username)
         $user = User::where('name', $request->name)->first();
 
-        // if user exists and password is correct then put them into session
+        // Si existe y la contraseña coincide:
         if ($user && $user->password === $request->password) {
+
+            // 🔥 Guardamos en la sesión la última fecha de acceso anterior
+            // Esto se usará para saber qué películas nuevas hay desde la última vez
             Session::put('last_login_before', $user->last_login);
-            // ✅ Guardar último acceso
+
+            // ✅ Actualizamos el campo last_login a la fecha y hora actual
             $user->last_login = now();
             $user->save();
+
+            // Guardamos datos de usuario en la sesión
             Session::put('user_id', $user->id);
             Session::put('user_name', $user->name);
-            return redirect('/');
 
-        } else {
-            return redirect()->back()->with('error', 'Invalid credentials please try again or create an account 1st');
+            // Redirigimos al inicio (home Vue)
+            return redirect('/');
+        } 
+        // ❌ Si los datos son incorrectos, mostramos error
+        else {
+            return redirect()->back()
+                ->with('error', 'Invalid credentials please try again or create an account 1st');
         }
-       
     }
 }
