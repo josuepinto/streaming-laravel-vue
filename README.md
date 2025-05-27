@@ -1,7 +1,7 @@
 # 🎬 Plataforma de Streaming – Laravel + Vue
 
 <p align="center">
-  Proyecto colaborativo del ciclo DAW para construir una plataforma de streaming similar a Netflix.<br>
+  Proyecto colaborativo del ciclo DAW para construir una plataforma de streaming.<br>
   Incluye backend en Laravel y frontend SPA en Vue.js.
 </p>
 
