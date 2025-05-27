@@ -1,19 +1,8 @@
+
+````markdown
 # 🎬 Plataforma de Streaming – Laravel + Vue
 
-<p align="center">
-  Proyecto colaborativo del ciclo DAW para construir una plataforma de streaming similar a Netflix.<br>
-  Incluye backend en Laravel y frontend SPA en Vue.js.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Laravel-9.x-red?logo=laravel&style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Vue.js-3.x-41B883?logo=vue.js&logoColor=white&style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&style=for-the-badge"/>
-</p>
-
----
-
-## 🧾 Estructura del Repositorio
+Proyecto colaborativo del ciclo DAW para construir una plataforma de streaming similar a Netflix, con funcionalidad tanto en backend (Laravel) como en frontend (Vue.js).
 
 Este repositorio contiene dos ramas principales:
 
@@ -22,19 +11,19 @@ Este repositorio contiene dos ramas principales:
 
 ---
 
-## 🚀 Funcionalidades Implementadas
+## 🚀 Funcionalidades implementadas
 
-### ✅ Backend Laravel:
+✅ Backend Laravel:
 - CRUD completo de **series y capítulos**
 - Migraciones y seeders para series y episodios
 - Panel de administración para series
-- API REST para consumo desde Vue
+- API REST para el consumo desde Vue
 - Integración de Laravel Breeze
 
-### ✅ Frontend Vue (SPA):
+✅ Frontend Vue (SPA):
 - Lista paginada de películas/series con detalles
 - Retorno automático a la misma posición
-- Buscador conectado con base de datos Laravel
+- Buscador conectado con la base de datos de Laravel
 - Formulario de edición con fecha, géneros dinámicos y preview de imagen
 - Novedades desde último acceso del usuario
 - IndexedDB con Service Worker para soporte offline
@@ -43,42 +32,42 @@ Este repositorio contiene dos ramas principales:
 
 ---
 
-## 👨‍💻 Mi Contribución
+## 👨‍💻 Mi contribución
 
-Este proyecto fue desarrollado en colaboración.
-
-**Mi rol:**
+Este proyecto fue desarrollado en colaboración.  
+**Mi rol:**  
 - Desarrollo completo del módulo de **Series y Capítulos** en Laravel.
 - **Toda la parte frontend en Vue.js**, incluyendo funcionalidades de Service Worker, IndexedDB, formularios, vídeos y notificaciones.
 - Evaluado con una nota final de **8,68 / 10** por el profesor Ginés Martínez.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Tecnologías utilizadas
 
-- **Laravel 9** – Backend API, migraciones y autenticación
-- **Vue.js 3** – SPA completa (componentes, rutas, fetch)
-- **PHP 8.1 (Laravel Sail)**
+- **Laravel 9**
+- **Vue.js 3**
+- **PHP 8.1 (SAIL)**
 - **MySQL/MariaDB**
-- **Bootstrap 5**
+- **Bootstrap**
 - **Docker + Laravel Sail**
 - **Service Worker / IndexedDB**
 - **GitLab CI/CD**
 
 ---
 
-## 🐳 Instalación del Entorno
+## 🐳 Instalación del entorno
 
-Este proyecto usa Laravel Sail (Docker). Sigue los pasos:
+Este proyecto usa Laravel Sail (Docker) para facilitar la configuración.  
+Sigue estos pasos:
 
-### 1. Clona el repositorio
+### 1. Descargar el repositorio
 
 ```bash
 git clone https://github.com/josuepinto/streaming-laravel-vue.git
 cd streaming-laravel-vue
-```
+````
 
-### 2. Instala Laravel Sail
+### 2. Instalar Laravel Sail
 
 ```bash
 docker run --rm \
@@ -89,13 +78,13 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-### 3. Levanta los contenedores
+### 3. Levantar contenedor Docker
 
 ```bash
 ./vendor/bin/sail up -d
 ```
 
-### 4. Instala dependencias
+### 4. Instalar dependencias
 
 ```bash
 ./vendor/bin/sail composer install
@@ -103,25 +92,28 @@ docker run --rm \
 ./vendor/bin/sail npm run dev
 ```
 
-### 5. Migra y llena la base de datos
+### 5. Migrar y poblar la base de datos
 
 ```bash
 ./vendor/bin/sail php artisan migrate:fresh --seed
 ```
 
-### 6. Abre la aplicación
+### 6. Abrir la aplicación
 
-👉 [https://localhost](https://localhost)
+Accede desde: [https://localhost](https://localhost)
 
----
+
 
 ## 🤝 Créditos
 
-- 👨‍💻 **Josue Pinto** – Desarrollo de series, capítulos, y frontend completo con Vue  
-- 🧑‍💻 **Mushtaq** – Desarrollo del módulo de películas y autenticación
+* **Josue Pinto** – Desarrollo de series, capítulos, y frontend completo con Vue
+* **Mushtaq** – Desarrollo del módulo de películas y autenticación
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto es de uso académico y puede ser reutilizado con fines educativos o de aprendizaje.
+Este proyecto es de uso académico y puede ser reutilizado para fines educativos.
+
+
+---
