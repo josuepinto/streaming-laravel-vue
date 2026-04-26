@@ -11,6 +11,10 @@ PiFlix es una aplicación web estilo plataforma de streaming construida con **La
 
 Esta rama representa la **versión Laravel + Blade** del proyecto y es la implementación principal orientada a portfolio.
 
+<p align="center">
+  <img src="docs/home.png" alt="PiFlix home" width="100%">
+</p>
+
 ---
 
 ## Descripción del proyecto
