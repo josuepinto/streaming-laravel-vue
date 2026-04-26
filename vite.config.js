@@ -8,9 +8,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-            'boostrap': 'bootstrap/dist/css/boostrap.min.css',
-        },
+    server:{
+        host:'0.0.0.0',
+        port:5173,
+        hmr:{
+            host:'localhost',
+        }
     },
+
 });

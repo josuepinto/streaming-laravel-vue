@@ -1,40 +1,81 @@
 @extends('layouts.user')
 
 @section('content')
-<div class="row justify-content-center mt-5">
-@if (session('success'))
-    <div class="alert alert-success">
-      {{ session('success') }}
+<div class="auth-card auth-card-login">
+    <div class="auth-logo">PI</div>
+
+    <div class="auth-header">
+        <span class="auth-kicker">Welcome Back</span>
+        <h1 class="auth-title">Sign in to your streaming space</h1>
+        <p class="auth-subtitle">
+            Continue exploring your catalogue, favourites and admin-ready portfolio experience.
+        </p>
     </div>
-@endif
 
-@if (session('error'))
-      <div class="alert alert-danger">
-          {{ session('error') }}
-      </div>
-@endif
-
-  <div class="col-md-6">    
-    <div class="login-container">
-      <h1>Login to PiFLIX</h1>
-        <img src="/image/login.jpeg" alt="Logo" width="50%" height="auto"> <br>
-        <form method="POST" action="{{ route('login') }}">
-          @csrf
-            <div class="form-group">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Username">
-            </div>
-            <br/>
-            <div class="form-group">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-            </div>
-            <br />
-            <input type="hidden" name="role" value="user"> <!-- Por defecto el rol es user -->
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <div class="mt-3">
-            <p>Create account  <a href="{{ route('inici') }}">Signup here</a></p>
+    @if (session('error'))
+        <div class="alert alert-danger auth-alert" role="alert">
+            {{ session('error') }}
         </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success auth-alert" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->has('login'))
+        <div class="alert alert-danger auth-alert" role="alert">
+            {{ $errors->first('login') }}
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}" class="auth-form" novalidate>
+        @csrf
+
+        <div class="auth-form-group">
+            <label for="email" class="auth-label">Email address</label>
+            <input
+                type="email"
+                class="form-control auth-input @error('email') is-invalid @enderror"
+                id="email"
+                name="email"
+                value="{{ old('email') }}"
+                placeholder="name@example.com"
+                autocomplete="email"
+            >
+            @error('email')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="auth-form-group">
+            <label for="password" class="auth-label">Password</label>
+            <input
+                type="password"
+                class="form-control auth-input @error('password') is-invalid @enderror"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+            >
+            @error('password')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn auth-button auth-button-primary">
+            Log in
+        </button>
+    </form>
+
+    <div class="auth-divider"></div>
+
+    <div class="auth-footer-box">
+        <p class="auth-footer-text">Don’t have an account yet?</p>
+        <a href="{{ route('inici') }}" class="btn auth-button auth-button-secondary">
+            Create account
+        </a>
     </div>
-  </div>
 </div>
 @endsection

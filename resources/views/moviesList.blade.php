@@ -2,36 +2,70 @@
 
 @section('content')
 
-@php 
-    use Illuminate\Support\Str; 
+@php
+    use Illuminate\Support\Str;
 @endphp
-<div class="content mt-4">
-    <h1 class="text-center mb-4">Movie List</h1>
-    <div class="row">
-        @foreach($moviesList as $movie)
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 d-flex flex-column">
-                <img src="{{ asset($movie->image) }}" class="card-img-top" alt="MovieImage">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div>
-                        <h2 class="card-title">{{ $movie->title }}</h2>
-                        <p class="card-text">{{ $movie->description }}</p>
-                        <p class="card-text"><strong>Genre:</strong> {{ $movie->genre }}</p>
-                        <p class="card-text"><strong>Year:</strong> {{ $movie->year }}</p>
-                        <p class="card-text"><strong>Actor:</strong> {{ $movie->actor }}</p>
-                        <p class="card-text"><strong>Director:</strong> {{ $movie->director }}</p>
-                    </div>
-                    
-                    <div class="d-flex gap-2">
-                        <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary mt-auto mx-auto">Watch Now</a>
-                       <!-- Boton para añadir peli en lista de favouritos paginas-->
-          
-                        <a href="{{ route('favourite.add', $movie->id) }}" class="btn btn-info mt-auto mx-auto">Add to Favourite</a>
-                    </div>
-                </div>
+
+<div class="stream-catalog-page">
+    <div class="container-fluid stream-page-wrap">
+        <div class="catalog-header">
+            <div>
+                <span class="catalog-kicker">Catalogue</span>
+                <h1>Movies</h1>
+                <p>Browse the full movie library with a cleaner, streaming-inspired presentation.</p>
             </div>
         </div>
-        @endforeach
+
+        @if (session('success'))
+            <div class="alert alert-success stream-alert">{{ session('success') }}</div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger stream-alert">{{ session('error') }}</div>
+        @endif
+
+        <div class="catalog-grid">
+            @foreach($moviesList as $movie)
+                @php
+                    $movieImage = Str::startsWith($movie->image, 'movies_images/')
+                        ? asset('storage/' . $movie->image)
+                        : asset($movie->image);
+                @endphp
+
+                <article class="catalog-card">
+                    <a href="{{ route('watch', $movie->id) }}" class="catalog-card-media">
+                        <img src="{{ $movieImage }}" alt="{{ $movie->title }}">
+                    </a>
+
+                    <div class="catalog-card-body">
+                        <div class="catalog-card-copy">
+                            <h2>{{ $movie->title }}</h2>
+                            <p>{{ Str::limit($movie->description, 130) }}</p>
+
+                            <div class="catalog-tags">
+                                <span>{{ $movie->genre }}</span>
+                                <span>{{ $movie->year }}</span>
+                            </div>
+                        </div>
+
+                        <div class="catalog-card-actions">
+                            <a href="{{ route('watch', $movie->id) }}" class="btn poster-btn poster-btn-primary">Watch</a>
+
+                            @if(isset($movieFavouriteIds[$movie->id]))
+                                <form action="{{ route('favourite.destroy', $movieFavouriteIds[$movie->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn poster-btn poster-btn-danger">Remove</button>
+                                </form>
+                            @else
+                                <a href="{{ route('favourite.movie.add', $movie->id) }}" class="btn poster-btn poster-btn-secondary">My List</a>
+                            @endif
+                        </div>
+                    </div>
+                </article>
+            @endforeach
+        </div>
     </div>
 </div>
+
 @endsection

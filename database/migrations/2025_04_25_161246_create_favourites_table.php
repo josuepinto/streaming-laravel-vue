@@ -6,27 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('favourites', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('movie_id');
-            $table->timestamps();
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->morphs('favouritable');
+                $table->timestamps();
 
-            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
+                $table->unique(
+                    ['user_id', 'favouritable_id', 'favouritable_type'],
+                    'favourites_user_item_unique'
+                );
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('favourites');

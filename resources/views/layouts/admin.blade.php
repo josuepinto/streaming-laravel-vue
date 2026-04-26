@@ -1,81 +1,72 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <title>{{ config('app.name', 'Laravel') }}</title>
-        <body class="font-sans antialiased">
-        <div class="jumbotron text-center">
-            <h1>PiFlix</h1>
-        </div>
-        <main class="container">
-            
-        <nav class="navbar bg-secondary border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
-    <div class="container-fluid">
-        <img src="{{ asset('image/logo.jpeg') }}" width="30" height="30" alt="Logo PiFlix">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-                <!-- Botón Home Admin Panel -->
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('adminPanel') }}">Home</a>
-                </li>
+    <title>{{ config('app.name', 'PiFlix') }} Admin</title>
+</head>
+<body class="stream-app admin-app">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <a href="{{ route('adminPanel') }}" class="admin-brand">
+                <span class="admin-brand-mark">PI</span>
+                <div>
+                    <span class="admin-brand-title">PiFlix</span>
+                    <span class="admin-brand-subtitle">Admin Panel</span>
+                </div>
+            </a>
 
-                <!-- Botón Agregar nueva Película -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('addMovie') }}">Add New Film</a>
-                </li>
+            <nav class="admin-nav">
+                <a class="admin-nav-link {{ request()->routeIs('adminPanel') ? 'active' : '' }}" href="{{ route('adminPanel') }}">
+                    Movies
+                </a>
+                <a class="admin-nav-link {{ request()->routeIs('addMovie') ? 'active' : '' }}" href="{{ route('addMovie') }}">
+                    Add Movie
+                </a>
+                <a class="admin-nav-link {{ request()->routeIs('series.create') ? 'active' : '' }}" href="{{ route('series.create') }}">
+                    Add Series
+                </a>
+                <a class="admin-nav-link {{ request()->routeIs('admin.seriesPanel') ? 'active' : '' }}" href="{{ route('admin.seriesPanel') }}">
+                    Series Panel
+                </a>
+                <a class="admin-nav-link {{ request()->routeIs('addEpisode') ? 'active' : '' }}" href="{{ route('addEpisode') }}">
+                    Add Episode
+                </a>
+                <a class="admin-nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+                    Back To App
+                </a>
+            </nav>
+        </aside>
 
-                <!-- Botón Agregar nuevo Episodio -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('addEpisode') }}">Add New Episode</a>
-                </li>
+        <div class="admin-main-shell">
+            <header class="admin-topbar">
+                <div>
+                    <span class="admin-kicker">Dashboard</span>
+                    <h1 class="admin-topbar-title">
+                        @yield('admin_title', 'Manage your PiFlix catalogue')
+                    </h1>
+                </div>
 
-                <!-- Botón Agregar nueva Serie -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('series.create') }}">Add New Serie</a>
-                </li>
+                <div class="admin-topbar-actions">
+                    <a href="{{ route('home') }}" class="btn poster-btn poster-btn-secondary">User View</a>
+                    <a href="{{ route('logout') }}" class="btn poster-btn poster-btn-danger">Logout</a>
+                </div>
+            </header>
 
-                <!-- 🔥 NUEVO BOTÓN: Ver Series Panel 🔥 -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.seriesPanel') }}">Series Panel</a>
-                </li>
-
-                <!-- Botón Volver a Home Usuario -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Home User</a>
-                </li>
-
-            </ul>
+            <main class="admin-main-content">
+                @yield('content')
+            </main>
         </div>
     </div>
-</nav>
 
-
-
-          @yield('content')
-
-          <footer class="bg-body-tertiary text-center">
-            <!-- Grid container -->
-            <div class="container p-4"></div>
-             <!-- Grid container -->
-
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-                © 2025 Copyright:
-                <a class="text-body" href="https://mdbootstrap.com/">PiFlix</a>
-            </div>
-            <!-- Copyright -->
-          </footer>
-        </main>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

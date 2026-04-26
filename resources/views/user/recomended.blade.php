@@ -1,28 +1,62 @@
 @extends('layouts.disenyo')
+
 @section('content')
-<div class="content mt-4">
-    <!-- by default here we show action movies as a recommended 
-     if for example we donot have any movie in action then we get the nothing msg -->
-    <h1 class="text-center mb-4">Recommended</h1>
-    @if ($actionMovies->isEmpty())
-        <div class="text-center">
-            <h4>No movies in recommended list.</h4>
+
+@php
+    use Illuminate\Support\Str;
+@endphp
+
+<div class="stream-catalog-page">
+    <div class="container-fluid stream-page-wrap">
+        <div class="catalog-header">
+            <div>
+                <span class="catalog-kicker">Recommended</span>
+                <h1>Recommended For You</h1>
+                <p>
+                    A curated row of action-driven titles that fit the current PiFlix recommendation logic.
+                </p>
+            </div>
         </div>
-    @else        
-        <div class="row">                                
-            @foreach($actionMovies as $movie)
-                <div class="col-md-4 mb-4">                                                        
-                    <div class="card h-100">                                                        
-                        <img src="{{ asset($movie->image) }}" class="card-img-top" alt="MovieImage">                                                        
-                        <div class="card-body">                                                        
-                            <h5>{{ $movie->title }}</h5>                                                        
-                            <p>{{ $movie->description }}</p>                                                        
-                            <a href="{{ route('watch', $movie->id) }}" class="btn btn-primary">Watch Now</a>                                                        
-                        </div>                                                        
-                    </div>                                                        
-                </div>                                                        
-            @endforeach                                                        
-        </div>                                                        
-    @endif
-</div>  
+
+        @if ($actionMovies->isEmpty())
+            <div class="stream-empty-state">
+                No movies are currently available in the recommended list.
+            </div>
+        @else
+            <div class="catalog-grid">
+                @foreach($actionMovies as $movie)
+                    @php
+                        $movieImage = Str::startsWith($movie->image, 'movies_images/')
+                            ? asset('storage/' . $movie->image)
+                            : asset($movie->image);
+                    @endphp
+
+                    <article class="catalog-card">
+                        <a href="{{ route('watch', $movie->id) }}" class="catalog-card-media">
+                            <img src="{{ $movieImage }}" alt="{{ $movie->title }}">
+                        </a>
+
+                        <div class="catalog-card-body">
+                            <div class="catalog-card-copy">
+                                <h2>{{ $movie->title }}</h2>
+                                <p>{{ $movie->description }}</p>
+
+                                <div class="catalog-tags">
+                                    <span>{{ $movie->genre }}</span>
+                                    <span>{{ $movie->year }}</span>
+                                </div>
+                            </div>
+
+                            <div class="catalog-card-actions">
+                                <a href="{{ route('watch', $movie->id) }}" class="btn poster-btn poster-btn-primary">Watch</a>
+                                <a href="{{ route('favourite.movie.add', $movie->id) }}" class="btn poster-btn poster-btn-secondary">My List</a>
+                            </div>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        @endif
+    </div>
+</div>
+
 @endsection

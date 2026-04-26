@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Episode;
+use App\Models\Favourite;
 
 class Serie extends Model
 {
@@ -19,10 +21,16 @@ class Serie extends Model
         'video_url',
         'num_episode'
     ];
-    // En App\Models\Serie.php
-public function episodes()
-{
-    return $this->hasMany(\App\Models\Episode::class);
-}
+
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class);
+    }
+
+    public function favourites()
+    {
+        return $this->morphMany(Favourite::class, 'favouritable');
+    }
+
 
 }

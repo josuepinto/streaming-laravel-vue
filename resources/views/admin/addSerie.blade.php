@@ -1,14 +1,12 @@
 @extends('layouts.admin')
 
+@section('admin_title', 'Add Series')
+
 @section('content')
-<header class="banner mt-5 text-center">
-    <h1>Añadir Nueva Serie</h1>
-</header>
-{{-- Mostrar errores de validación --}}
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Ups, hubo errores con los campos:</strong>
-        <ul class="mb-0">
+    <div class="alert alert-danger stream-alert admin-alert">
+        <strong>Please review the fields below:</strong>
+        <ul class="mb-0 mt-2">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -16,58 +14,57 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('series.store') }}" class="container mt-5" enctype="multipart/form-data">
-    @csrf
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="name">Nombre de la Serie:</label>
-                <input type="text" id="name" name="name" class="form-control">
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="desc">Descripción:</label>
-                <textarea id="desc" name="desc" class="form-control"></textarea>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="actor">Actores:</label>
-                <input type="text" id="actor" name="actor" class="form-control">
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="director">Director:</label>
-                <input type="text" id="director" name="director" class="form-control">
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="image">Imagen de la Serie:</label>
-                <input type="file" id="image" name="image" class="form-control" accept="image/*">
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="video_url">URL del Video:</label>
-                <input type="url" id="video_url" name="video_url" class="form-control">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="num_episode">Número de capítulos:</label>
-                <input type="number" id="num_episode" name="num_episode" class="form-control">
-            </div>
+<section class="admin-form-card">
+    <div class="admin-section-heading">
+        <div>
+            <span class="catalog-kicker">Series</span>
+            <h2>Add a New Series</h2>
+            <p>Create a new series entry with its core catalogue information.</p>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Guardar Serie</button>
-</form>
+    <form method="POST" action="{{ route('series.store') }}" enctype="multipart/form-data" class="admin-form-grid">
+        @csrf
+
+        <div class="admin-form-group">
+            <label for="name">Series Name</label>
+            <input type="text" id="name" name="name" class="form-control admin-form-input" value="{{ old('name') }}">
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+            <label for="desc">Description</label>
+            <textarea id="desc" name="desc" class="form-control admin-form-input admin-form-textarea">{{ old('desc') }}</textarea>
+        </div>
+
+        <div class="admin-form-group">
+            <label for="actor">Actors</label>
+            <input type="text" id="actor" name="actor" class="form-control admin-form-input" value="{{ old('actor') }}">
+        </div>
+
+        <div class="admin-form-group">
+            <label for="director">Director</label>
+            <input type="text" id="director" name="director" class="form-control admin-form-input" value="{{ old('director') }}">
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+            <label for="video_url">Video URL</label>
+            <input type="url" id="video_url" name="video_url" class="form-control admin-form-input" value="{{ old('video_url') }}">
+        </div>
+
+        <div class="admin-form-group">
+            <label for="num_episode">Number of Episodes</label>
+            <input type="number" id="num_episode" name="num_episode" class="form-control admin-form-input" value="{{ old('num_episode') }}">
+        </div>
+
+        <div class="admin-form-group">
+            <label for="image">Series Image</label>
+            <input type="file" id="image" name="image" class="form-control admin-form-input" accept="image/*">
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn poster-btn poster-btn-primary">Save Series</button>
+            <a href="{{ route('admin.seriesPanel') }}" class="btn poster-btn poster-btn-secondary">Cancel</a>
+        </div>
+    </form>
+</section>
 @endsection

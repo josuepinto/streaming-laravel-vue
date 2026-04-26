@@ -1,75 +1,77 @@
 @extends('layouts.admin')
 
+@section('admin_title', 'Manage Episodes')
+
 @section('content')
-<div class="container mt-5">
-    <h1 class="mb-4">Episodios de la Serie: <strong>{{ $serie->name }}</strong></h1>
+@if(session('success'))
+    <div class="alert alert-success stream-alert admin-alert">
+        {{ session('success') }}
+    </div>
+@endif
 
-    {{-- ✅ Mensaje de éxito --}}
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+<section class="admin-panel-card">
+    <div class="admin-section-heading">
+        <div>
+            <span class="catalog-kicker">Episodes</span>
+            <h2>{{ $serie->name }}</h2>
+            <p>Manage all registered episodes for this series.</p>
+        </div>
 
-    {{-- ✅ Botón para agregar un nuevo episodio directamente para esta serie --}}
-    <div class="mb-3 text-end">
         <form method="POST" action="{{ route('addEpisode') }}">
             @csrf
             <input type="hidden" name="serie_id" value="{{ $serie->id }}">
-            <button type="submit" class="btn btn-success">➕ Añadir nuevo episodio a esta serie</button>
+            <button type="submit" class="btn poster-btn poster-btn-primary">Add Episode</button>
         </form>
     </div>
 
-    {{-- ✅ Tabla de episodios --}}
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Imagen</th>
-                <th>Título</th>
-                <th>Temporada</th>
-                <th>Episodio</th>
-                <th>Video URL</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($episodes as $episode)
+    <div class="admin-table-shell">
+        <table class="admin-table">
+            <thead>
                 <tr>
-                <td>
-    @php
-        $imagePath = $episode->image 
-            ? asset('storage/' . $episode->image) 
-            : asset($serie->image); // aquí asumimos que ya es tipo 'image/xxx.jpg'
-    @endphp
-    <img 
-        src="{{ asset($serie->image) }}"
-        alt="Imagen del episodio"
-        class="img-thumbnail object-fit-cover w-100"
-        style="height: 250px; max-width: 250px;">
-</td>
-
-                    <td>{{ $episode->title }}</td>
-                    <td>{{ $episode->season }}</td>
-                    <td>{{ $episode->episode_number }}</td>
-                    <td><a href="{{ $episode->video_url }}" target="_blank">Ver video</a></td>
-                    <td class="d-flex gap-2">
-                        {{-- ✏️ Editar episodio --}}
-                        <a href="{{ route('episodes.edit', $episode->id) }}" class="btn btn-primary btn-sm">✏️ Editar</a>
-
-                        {{-- 🗑️ Eliminar episodio --}}
-                        <form method="POST" action="{{ route('episodes.destroy', $episode->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este episodio?')">
-                                🗑️ Eliminar
-                            </button>
-                        </form>
-                    </td>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Season</th>
+                    <th>Episode</th>
+                    <th>Video</th>
+                    <th>Actions</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center text-muted">No hay episodios registrados para esta serie.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @forelse($episodes as $episode)
+                    <tr>
+                        <td>
+                            <img
+                                src="{{ $episode->image ? asset('storage/' . $episode->image) : asset($serie->image) }}"
+                                alt="{{ $episode->title }}"
+                                class="admin-thumb"
+                            >
+                        </td>
+                        <td class="admin-cell-strong">{{ $episode->title }}</td>
+                        <td><span class="admin-pill">Season {{ $episode->season }}</span></td>
+                        <td>{{ $episode->episode_number }}</td>
+                        <td>
+                            <a href="{{ $episode->video_url }}" target="_blank" class="admin-inline-link">Open video</a>
+                        </td>
+                        <td>
+                            <div class="admin-actions">
+                                <a href="{{ route('episodes.edit', $episode->id) }}" class="btn poster-btn poster-btn-primary">Edit</a>
+                                <form method="POST" action="{{ route('episodes.destroy', $episode->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn poster-btn poster-btn-danger" onclick="return confirm('Delete this episode?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="admin-empty-row">No episodes registered for this series.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</section>
 @endsection

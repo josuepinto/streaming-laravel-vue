@@ -18,3 +18,7 @@ yarn-error.log
 composer.lock
 package-lock.json
 .env
+.codex/
+AGENTS.md
+project_context.md
+.codex

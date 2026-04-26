@@ -3,93 +3,199 @@
 @section('content')
 
 @php
-    // Usamos la clase Str para verificar si una ruta de imagen comienza con 'movies_images/'
     use Illuminate\Support\Str;
+
+    $featuredMovies = $movies->take(5)->values();
 @endphp
 
-<div class="container-fluid">
-    <h1 class="mb-4 text-center">Piflix</h1>
-    <h2>Welcome {{ $userName }} to Piflix </h2>
-    <!-- Banner principal -->
-    <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @foreach($movies->take(20) as $index => $movie)
-                @php
-                    // ✅ Si la imagen es de storage (subida), usamos asset('storage/...').
-                    // ✅ Si es una imagen de seeders/factory (por ejemplo en public/image/...), la usamos directamente.
-                    $movieImage = Str::startsWith($movie->image, 'movies_images/') ? asset('storage/' . $movie->image) : asset($movie->image);
-                @endphp
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="{{ $movieImage }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="{{ $movie->title }}">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h2>{{ $movie->title }}</h2>
-                        <p>{{ Str::limit($movie->description, 150) }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Controles del carrusel -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
-</div>
-
-<!-- Películas & series debajo del carrusel -->
-<div class="container mt-5">
-    @if ($movies->isEmpty() && $series->isEmpty())
-        <div class="alert alert-warning text-center">
-            No movies or series found for your search.
+<div class="stream-home">
+    @if (session('error'))
+        <div class="container-fluid stream-page-wrap">
+            <div class="alert alert-danger stream-alert" role="alert">
+                {{ session('error') }}
+            </div>
         </div>
     @endif
 
-    <h1 class="text-right mb-4">Latest Releases</h1>
-
-    <div class="row">
-        @foreach($series as $serie)
-            <div class="col-md-4 p-3">
-                <div class="card mb-3 h-100 d-flex flex-column">
-                    <a href="{{ route('series.show', $serie->id) }}">
-                        <!-- ✅ Las imágenes de series siempre van por storage, porque se suben por formulario -->
-                        <img src="{{ asset($serie->image) }}"
-                             class="card-img-top"
-                             alt="{{ $serie->name }}"
-                             style="height: 300px; object-fit: cover;">
-                    </a>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h5 class="card-title">{{ $serie->name }}</h5>
-                        </div>
-                    </div>
-                </div>
+    @if (session('success'))
+        <div class="container-fluid stream-page-wrap">
+            <div class="alert alert-success stream-alert" role="alert">
+                {{ session('success') }}
             </div>
-        @endforeach
+        </div>
+    @endif
 
-        @foreach($movies as $movie)
-            <div class="col-md-4 p-3">
-                <div class="card mb-3 h-100 d-flex flex-column">
-                    <a href="{{ route('watch', $movie->id) }}">
+    @if ($featuredMovies->isNotEmpty())
+        <section class="hero-spotlight" data-hero-spotlight data-interval="20000">
+            <div class="hero-slider">
+                @foreach($featuredMovies as $index => $featuredMovie)
+                    @php
+                        $featuredImage = Str::startsWith($featuredMovie->image, 'movies_images/')
+                            ? asset('storage/' . $featuredMovie->image)
+                            : asset($featuredMovie->image);
+                    @endphp
+
+                    <article class="hero-slide {{ $index === 0 ? 'is-active' : '' }}" data-hero-slide>
+                        <div class="hero-backdrop">
+                            <img src="{{ $featuredImage }}" alt="{{ $featuredMovie->title }}">
+                        </div>
+
+                        <div class="hero-overlay"></div>
+
+                        <div class="container-fluid stream-page-wrap hero-content">
+                            <div class="hero-copy">
+                                <span class="hero-kicker">PiFlix Featured</span>
+                                <h1 class="hero-title">{{ $featuredMovie->title }}</h1>
+                                <p class="hero-meta">
+                                    {{ $featuredMovie->year }} · {{ $featuredMovie->genre }} · {{ $featuredMovie->director }}
+                                </p>
+                                <p class="hero-description">
+                                    {{ Str::limit($featuredMovie->description, 220) }}
+                                </p>
+
+                                <div class="hero-actions">
+                                    <a href="{{ route('watch', $featuredMovie->id) }}" class="btn hero-btn hero-btn-primary">
+                                        Watch now
+                                    </a>
+
+                                    @if(isset($movieFavouriteIds[$featuredMovie->id]))
+                                        <form action="{{ route('favourite.destroy', $movieFavouriteIds[$featuredMovie->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn hero-btn hero-btn-secondary">Remove from My List</button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('favourite.movie.add', $featuredMovie->id) }}" class="btn hero-btn hero-btn-secondary">
+                                            Add to My List
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+
+            @if($featuredMovies->count() > 1)
+                <button type="button" class="hero-nav hero-nav-prev" data-hero-prev aria-label="Previous featured item">
+                    <span>&lsaquo;</span>
+                </button>
+
+                <button type="button" class="hero-nav hero-nav-next" data-hero-next aria-label="Next featured item">
+                    <span>&rsaquo;</span>
+                </button>
+
+                <div class="hero-indicators container-fluid stream-page-wrap">
+                    @foreach($featuredMovies as $index => $featuredMovie)
+                        <button
+                            type="button"
+                            class="hero-indicator {{ $index === 0 ? 'is-active' : '' }}"
+                            data-hero-indicator
+                            data-index="{{ $index }}"
+                            aria-label="Go to featured item {{ $index + 1 }}"
+                        ></button>
+                    @endforeach
+                </div>
+            @endif
+        </section>
+    @endif
+
+    <div class="container-fluid stream-page-wrap stream-sections">
+        <section class="stream-section">
+            <div class="section-heading">
+                <h2>Trending Series</h2>
+                <p>Series your catalogue is spotlighting right now.</p>
+            </div>
+
+            @if($series->isEmpty())
+                <div class="stream-empty-state">
+                    No series found for your current search.
+                </div>
+            @else
+                <div class="poster-row">
+                    @foreach($series as $serie)
                         @php
-                            // ✅ Mismo tratamiento que el carrusel: si es de storage, se carga con asset('storage/...'), si no, directo.
-                            $movieImage = Str::startsWith($movie->image, 'movies_images/') ? asset('storage/' . $movie->image) : asset($movie->image);
+                            $serieImage = Str::startsWith($serie->image, 'series_images/')
+                                ? asset('storage/' . $serie->image)
+                                : asset($serie->image);
                         @endphp
-                        <img src="{{ $movieImage }}"
-                             class="card-img-top"
-                             alt="{{ $movie->title }}"
-                             style="height: 300px; object-fit: cover;">
-                    </a>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h5 class="card-title">{{ $movie->title }}</h5>
-                        </div>
-                    </div>
+
+                        <article class="poster-card">
+                            <a href="{{ route('series.show', $serie->id) }}" class="poster-media">
+                                <img src="{{ $serieImage }}" alt="{{ $serie->name }}">
+                            </a>
+
+                            <div class="poster-overlay">
+                                <h3>{{ $serie->name }}</h3>
+                                <p>{{ Str::limit($serie->desc, 110) }}</p>
+
+                                <div class="poster-actions">
+                                    <a href="{{ route('series.show', $serie->id) }}" class="btn poster-btn poster-btn-primary">Details</a>
+
+                                    @if(isset($serieFavouriteIds[$serie->id]))
+                                        <form action="{{ route('favourite.destroy', $serieFavouriteIds[$serie->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn poster-btn poster-btn-danger">Remove</button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('favourite.serie.add', $serie->id) }}" class="btn poster-btn poster-btn-secondary">My List</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
                 </div>
+            @endif
+        </section>
+
+        <section class="stream-section">
+            <div class="section-heading">
+                <h2>Popular Movies</h2>
+                <p>A sharper and more cinematic catalogue experience.</p>
             </div>
-        @endforeach
+
+            @if($movies->isEmpty())
+                <div class="stream-empty-state">
+                    No movies found for your current search.
+                </div>
+            @else
+                <div class="poster-row">
+                    @foreach($movies as $movie)
+                        @php
+                            $movieImage = Str::startsWith($movie->image, 'movies_images/')
+                                ? asset('storage/' . $movie->image)
+                                : asset($movie->image);
+                        @endphp
+
+                        <article class="poster-card">
+                            <a href="{{ route('watch', $movie->id) }}" class="poster-media">
+                                <img src="{{ $movieImage }}" alt="{{ $movie->title }}">
+                            </a>
+
+                            <div class="poster-overlay">
+                                <h3>{{ $movie->title }}</h3>
+                                <p>{{ Str::limit($movie->description, 110) }}</p>
+
+                                <div class="poster-actions">
+                                    <a href="{{ route('watch', $movie->id) }}" class="btn poster-btn poster-btn-primary">Play</a>
+
+                                    @if(isset($movieFavouriteIds[$movie->id]))
+                                        <form action="{{ route('favourite.destroy', $movieFavouriteIds[$movie->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn poster-btn poster-btn-danger">Remove</button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('favourite.movie.add', $movie->id) }}" class="btn poster-btn poster-btn-secondary">My List</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            @endif
+        </section>
     </div>
 </div>
 

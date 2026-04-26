@@ -4,21 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Movie;
 
 class Favourite extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['movie_id'];
+    protected $fillable = [
+        'user_id',
+        'favouritable_id',
+        'favouritable_type',
+    ];
 
-    public function movie()
+    public function user()
     {
-        return $this->belongsTo(Movie::class);
+        return $this->belongsTo(User::class);
     }
-    public function serie()
-{
-    return $this->belongsTo(Serie::class);
-}
-    
+
+    public function favouritable()
+    {
+        return $this->morphTo();
+    }
 }
